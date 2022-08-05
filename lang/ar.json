@@ -1,0 +1,17 @@
+{
+    "ID": "الرقم",
+    "Name": "الاسم",
+    "Slug": "الترحمة الحرفية",
+    "Parent Name": "اسم الاب",
+    "Products Count": "عدد المنتجات",
+    "Status": "الحالة",
+    "Ceated At": "تاريخ الاضافة",
+    "Categories List":"قائمة المصنفات",
+    "Edit":"تعديل",
+    "Delete":"حذف",
+    "Category Name":"اسم المصنف",
+    "Parent":"الاب",
+    "Description":"الوصف",
+    "Image":"الصورة",
+    "Current Locale is :locale":"اللفة الحالية هي :locale"
+}

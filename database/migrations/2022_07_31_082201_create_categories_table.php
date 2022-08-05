@@ -20,7 +20,7 @@ return new class extends Migration
             $table->foreignId('parent_id')->nullable()->constrained('categories', 'id')->nullOnDelete();
             $table->text('description')->nullable();
             $table->string('image_path')->nullable();
-            $table->enum('status', ['active', 'draft']);
+            $table->enum('status', ['active', 'archived']);
             $table->timestamps();
             $table->softDeletes();
         });

@@ -31,18 +31,18 @@ Route::prefix('admin')
 
         Route::controller(CategoriesController::class)
             ->group(function () {
-                Route::resource('/categories', CategoriesController::class);
                 Route::get('/categories/trash', 'trash')->name('categories.trash');
                 Route::put('/categories/trash/{id?}', 'restore')->name('categories.restore');
                 Route::delete('/categories/trash/{id?}', 'forceDelete')->name('categories.force-delete');
+                Route::resource('/categories', CategoriesController::class);
             });
 
         Route::controller(ProductsController::class)
             ->group(function () {
-                Route::resource('/products', ProductsController::class);
                 Route::get('/products/trash', 'trash')->name('products.trash');
                 Route::put('/products/trash/{id?}', 'restore')->name('products.restore');
                 Route::delete('/products/trash/{id?}', 'forceDelete')->name('products.force-delete');
+                Route::resource('/products', ProductsController::class);
             });
 
         // Route::resource('/roles', 'RolesController');
