@@ -2,20 +2,20 @@
     <div class="alert alert-danger">
         <ul>
             @foreach ($errors->all() as $message)
-                <li> {{ $message }} </li>
+                <li> {{ __($message) }} </li>
             @endforeach
         </ul>
     </div>
 @endif
 
 <div class="form-group">
-    <label for="">Product Name</label>
+    <label for="">{{ __('Product Name') }}</label>
     <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name', $product->name) }}">
     {{-- @if ($errors->has('name'))
         <p class="text-danger">{{ $errors->get('name')[0] }}</p>
     @endif --}}
     @error('name')
-        <p class="invalid-feedback">{{ $message }}</p>
+        <p class="invalid-feedback">{{ __($message) }}</p>
     @enderror
 </div>
 
@@ -24,10 +24,10 @@
 </div>
 
 <div class="form-group">
-    <label for="">Description</label>
+    <label for="">{{ __('Description') }}</label>
     <textarea class="form-control @error('description') is-invalid @enderror" name="description"> {{ old('description', $product->description) }}</textarea>
     @error('description')
-        <p class="invalid-feedback">{{ $message }}</p>
+        <p class="invalid-feedback">{{ __($message) }}</p>
     @enderror
 </div>
 
@@ -69,22 +69,22 @@
 </div>
 
 <div class="form-group">
-    <label for="status">Status</label>
+    <label for="status">{{ __('Status') }}</label>
     <div>
         <div class="form-check @error('status') is-invalid @enderror">
             <input class="form-check-input" type="radio" name="status" id="status-active" value="active" @if(old('status', $product->status) == 'active') checked @endif>
-            <label class="form-check-label" for="flexRadioDefault1"> Active </label>
+            <label class="form-check-label" for="flexRadioDefault1"> {{ ucfirst(__('active')) }} </label>
         </div>
         <div class="form-check">
             <input class="form-check-input" type="radio" name="status" id="status-draft" value="draft" @if(old('status', $product->status) == 'draft') checked @endif>
-            <label class="form-check-label" for="flexRadioDefault2"> Draft </label>
+            <label class="form-check-label" for="flexRadioDefault2"> {{ ucfirst(__('draft')) }} </label>
         </div>
     </div>
     @error('status')
-        <p class="text-danger">{{ $message }}</p>
+        <p class="text-danger">{{ __($message) }}</p>
     @enderror
 </div>
 
 <div class="form-group">
-    <button type="submit" class="btn btn-primary">{{$button}}</button>
+    <button type="submit" class="btn btn-primary">{{ __($button) }}</button>
 </div>

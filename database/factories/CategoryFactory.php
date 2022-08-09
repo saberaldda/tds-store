@@ -21,14 +21,14 @@ class CategoryFactory extends Factory
     {
         // $category = DB::table('categories')->inRandomOrder()->limit(1)->first(['id']);
         $category = Category::inRandomOrder()->limit(1)->first('id');
-        $status = ['active', 'draft'];
+        $status = ['active', 'archived'];
         $name = $this->faker->name(2, true);
     
         return [
             'name'        => $name,
             'slug'        => Str::slug($name),
             'parent_id'   => $category? $category->id : null,
-            'description' => $this->faker->words(200 ,true),
+            'description' => $this->faker->words(10 ,true),
             'image_path'  => $this->faker->imageUrl(),
             'status'      => $status[rand(0, 1)],
         ];

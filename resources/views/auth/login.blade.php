@@ -50,6 +50,12 @@
                 <x-button class="ml-3">
                     {{ __('Log in') }}
                 </x-button>
+
+                @if (App::currentLocale() == 'ar')
+                    <a href="login?lang=en" class="ml-2 badge"><b>AR</a>
+                @elseif(App::currentLocale() == 'en')
+                    <a href="login?lang=ar" class="ml-2 badge"><b>EN</a>
+                @endif
             </div>
         </form>
     </x-auth-card>

@@ -25,10 +25,10 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         $this->call([
-            // UsersTableSeeder::class,
+            UsersTableSeeder::class,
         ]);
-
-        Category::factory(10)->create();
-        Product::factory(10)->create();
+        Category::factory(5)->create();
+        Category::factory(25)->create();
+        Product::factory(60)->create();
     }
 }

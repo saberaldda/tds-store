@@ -31,6 +31,11 @@ class ProductFactory extends Factory
             'status'        => $status[rand(0, 1)],
             'price'         => $this->faker->randomFloat(2, 50, 1000),
             'quantity'      => $this->faker->randomFloat(0, 0, 30),
+            'sku'           => $this->faker->unique()->numberBetween(1, 1000),
+            'height'        => $this->faker->numberBetween(1, 99),
+            'width'         => $this->faker->numberBetween(1, 99),
+            'weight'        => $this->faker->numberBetween(1, 99),
+            'length'        => $this->faker->numberBetween(1, 99),
         ];
     }
 }

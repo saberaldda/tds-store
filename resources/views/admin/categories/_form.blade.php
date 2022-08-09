@@ -2,7 +2,7 @@
     <div class="alert alert-danger">
         <ul>
             @foreach ($errors->all() as $message)
-                <li> {{ $message }} </li>
+                <li> {{ __($message) }} </li>
             @endforeach
         </ul>
     </div>
@@ -15,7 +15,7 @@
         <p class="text-danger">{{ $errors->get('name')[0] }}</p>
     @endif --}}
     @error('name')
-        <p class="invalid-feedback">{{ $message }}</p>
+        <p class="invalid-feedback">{{ __($message) }}</p>
     @enderror
 </div>
 
@@ -28,7 +28,7 @@
         @endforeach
     </select>
     @error('parent_id')
-        <p class="invalid-feedback">{{ $message }}</p>
+        <p class="invalid-feedback">{{ __($message) }}</p>
     @enderror
 </div>
 
@@ -36,7 +36,7 @@
     <label for="">{{ __('Description') }}</label>
     <textarea class="form-control @error('description') is-invalid @enderror" name="description"> {{ old('description', $category->description) }}</textarea>
     @error('description')
-        <p class="invalid-feedback">{{ $message }}</p>
+        <p class="invalid-feedback">{{ __($message) }}</p>
     @enderror
 </div>
 
@@ -44,7 +44,7 @@
     <label for="">{{ __('Image') }}</label>
     <input type="file" class="form-control @error('image') is-invalid @enderror" name="image">
     @error('image')
-        <p class="invalid-feedback">{{ $message }}</p>
+        <p class="invalid-feedback">{{ __($message) }}</p>
     @enderror
 </div>
 
@@ -53,18 +53,18 @@
     <div>
         <div class="form-check @error('status') is-invalid @enderror">
             <input class="form-check-input" type="radio" name="status" id="status-active" value="active" @if(old('status', $category->status) == 'active') checked @endif>
-            <label class="form-check-label" for="flexRadioDefault1"> Active </label>
+            <label class="form-check-label" for="flexRadioDefault1"> {{ ucfirst(__('active')) }} </label>
         </div>
         <div class="form-check">
-            <input class="form-check-input" type="radio" name="status" id="status-draft" value="draft" @if(old('status', $category->status) == 'draft') checked @endif>
-            <label class="form-check-label" for="flexRadioDefault2"> Draft </label>
+            <input class="form-check-input" type="radio" name="status" id="status-archived" value="archived" @if(old('status', $category->status) == 'archived') checked @endif>
+            <label class="form-check-label" for="flexRadioDefault2"> {{ ucfirst(__('archived')) }} </label>
         </div>
     </div>
     @error('status')
-        <p class="text-danger">{{ $message }}</p>
+        <p class="text-danger">{{ __($message) }}</p>
     @enderror
 </div>
 
 <div class="form-group">
-    <button type="submit" class="btn btn-primary">{{$button}}</button>
+    <button type="submit" class="btn btn-primary">{{__($button)}}</button>
 </div>

@@ -14,13 +14,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="{{ asset('assets/admin/plugins/fontawesome-free/css/all.min.css') }}">
-    <link rel="icon" href="http://example.com/favicon.png">
+    <link rel="icon" href="{{ asset('assets/admin/img/tds.png') }}">
     <!-- Theme style -->
     @if (App::currentLocale() == 'ar')
     <link rel="stylesheet" href="{{ asset('assets/admin/css/adminlte.rtl.min.css') }}">
     @else
     <link rel="stylesheet" href="{{ asset('assets/admin/css/adminlte.min.css') }}">
     @endif
+    <!-- Table zepra coloring -->
+    <style> tr:nth-child(odd) {background: #CCC} </style>
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -34,10 +36,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="index3.html" class="nav-link">Home</a>
+                    <a href="{{ route('dashboard') }}" class="nav-link">{{ __('Home') }}</a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="#" class="nav-link">Contact</a>
+                    <a href="#" class="nav-link">{{ __('Contact') }}</a>
                 </li>
             </ul>
 
@@ -69,8 +71,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
-            <a href="index3.html" class="brand-link">
-                <img src="{{ asset('assets/admin/img/AdminLTELogo.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+            <a href="{{ route('dashboard') }}" class="brand-link">
+                <img src="{{ asset('assets/admin/img/tds.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
                 <span class="brand-text font-weight-light">{{ config('app.name') }}</span>
             </a>
 
@@ -79,14 +81,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <!-- Sidebar user panel (optional) -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
-                        <img src="{{ asset('assets/admin/img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image">
+                        <img src="{{ Auth::user()->profile_photo_path }}" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
                         <a href="#" class="d-block">{{ Auth::user()->name }}</a>
+                        <form action="{{ route('logout') }}" method="post">
+                        @csrf
+                        <button type="submit" class="btn btn-sm btn-outline-primary mt-4 ml-4 font-weight-bold">{{ __('Logout') }}</button>
+                        </form>
                     </div>
                 </div>
 
-                <!-- SidebarSearch Form -->
+                {{-- <!-- SidebarSearch Form -->
                 <div class="form-inline">
                     <div class="input-group" data-widget="sidebar-search">
                         <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
@@ -96,14 +102,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             </button>
                         </div>
                     </div>
-                </div>
+                </div> --}}
 
                 <!-- Sidebar Menu -->
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <!-- Add icons to the links using the .nav-icon class
                             with font-awesome or any other icon font library -->
-                        <li class="nav-item menu-open">
+                        {{-- <li class="nav-item menu-open">
                             <a href="#" class="nav-link active">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
@@ -125,13 +131,31 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     </a>
                                 </li>
                             </ul>
+                        </li> --}}
+                        <li class="nav-item">
+                            <a href="{{ route('categories.index') }}" class="nav-link @if (URL::current() == route('categories.index')) active @endif">
+                                <i class="nav-icon fas fa-tags"></i>
+                                <p>
+                                    {{ __('Categories') }}
+                                    <span class="right badge badge-danger">{{ __('New') }}</span>
+                                </p>
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-th"></i>
+                            <a href="{{ route('products.index') }}" class="nav-link @if (URL::current() == route('products.index')) active @endif">
+                                <i class="nav-icon fas fa-shopping-bag"></i>
                                 <p>
-                                    Simple Link
-                                    <span class="right badge badge-danger">New</span>
+                                    {{ __('Products') }}
+                                    <span class="right badge badge-danger">{{ __('New') }}</span>
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="" class="nav-link">
+                                <i class="nav-icon fas fa-key"></i>
+                                <p>
+                                    {{ __('Roles') }}
+                                    <span class="right badge badge-danger">{{ __('New') }}</span>
                                 </p>
                             </a>
                         </li>
@@ -149,10 +173,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
+                            <div class="ml-5 font-weight-bold">
                             @yield('title')
+                            </div>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
+
                             @yield('breadcrumb')
+
                         </div><!-- /.col -->
                     </div><!-- /.row -->
                 </div><!-- /.container-fluid -->
@@ -164,8 +192,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <div class="container">
                     <div class="row">
                         <div class="col-12">
-                            {{-- <x-alert /> --}}
+                            <x-alert />
                             @yield('content')
+                            @if (URL::current() == 'http://localhost:8000/dashboard')
+                                <a href="{{ route('categories.index') }}">{{ __('Categories') }}</a>
+                                <br>
+                                <a href="{{ route('products.index') }}">{{ __('Products') }}</a>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -187,11 +220,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <!-- Main Footer -->
         <footer class="main-footer">
             <!-- To the right -->
-            <div class="float-right d-none d-sm-inline">
-                Anything you want
+            <div class="float-right d-none d-sm-inline text-primary">
+                {{ now(+3)->format('Y-m-d // H:i') }}
             </div>
             <!-- Default to the left -->
-            <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
+            <strong>Copyright &copy; 2014-2022 <a href="">TheDarkSaber</a>.</strong> All rights reserved.
         </footer>
     </div>
     <!-- ./wrapper -->

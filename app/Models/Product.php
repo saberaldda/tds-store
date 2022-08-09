@@ -69,7 +69,8 @@ class Product extends Model
             'price'       => 'nullable|numeric|min:0',
             'sale_price'  => 'nullable|numeric|min:0',
             'quantity'    => 'nullable|int|min:0',
-            'sku'         => 'nullable|unique:products,sku',
+            'sku'         => 'nullable',
+                                    // |unique:products,sku
             'width'       => 'nullable|numeric|min:0',
             'height'      => 'nullable|numeric|min:0',
             'length'      => 'nullable|numeric|min:0',
@@ -83,13 +84,13 @@ class Product extends Model
     public function getImageUrlAttribute()
     {
         if (!$this->image_path) {
-            return asset('images/placeholder.png');
+            return asset('assets/admin/img/tds.png');
         }
         if (stripos($this->image_path, 'http') === 0) {
             return $this->image_path;
         }
 
-        return asset('uploads/' . $this->image_path);
+        return asset('storage/' . $this->image_path);
     }
 
     // Mutators:    set{AttributeName}Attribute()

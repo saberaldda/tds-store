@@ -7,6 +7,7 @@ use Illuminate\Support\Str;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProductsController extends Controller
 {
@@ -17,11 +18,23 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        $products = Product::withoutGlobalScopes([ActiveStatusScope::class])
+        // for search
+        $request = request();
+        $query = Product::query();
+
+        if ($name = $request->query('name')) {
+            $query->where('name', 'LIKE', "%{$name}%");
+        }
+        if ($status = $request->query('status')) {
+            $query->where('status', '=', $status);
+        }
+
+        $products = $query->withoutGlobalScopes([ActiveStatusScope::class])
             ->with('category.parent')
             ->select(['products.*',])
             ->paginate();
 
+        // for select menu (search)
         $options = ['ative', 'draft'];
 
         return view('admin.products.index', [
@@ -59,10 +72,24 @@ class ProductsController extends Controller
 
         $request->validate(Product::validateRules());
 
+        // sheck if image in request
+        if ($request->hasFile('image')) {
+            $file = $request->file('image'); // UplodedFile Object
+
+            $image_path = $file->storeAs('uploads',
+            time() . $file->getClientOriginalName(),
+            'public');
+            
+            // merge image to the request
+            $request->merge([
+                'image_path' => $image_path,
+            ]);
+        }
+
         $product = Product::create($request->all());
 
         return redirect()->route('products.index')
-            ->with('success', "Product ($product->name) CREATED.");
+            ->with('success', __('app.products_store'));
     }
 
     /**
@@ -113,12 +140,15 @@ class ProductsController extends Controller
 
         $request->validate(Product::validateRules());
 
+        // sheck if image in request
         if ($request->hasFile('image')) {
             $file = $request->file('image'); // UplodedFile Object
 
-            $image_path = $file->store('uploads', [
-                'disk' => 'public',
-            ]);
+            $image_path = $file->storeAs('uploads',
+            time() . $file->getClientOriginalName(),
+            'public');
+            
+            // merge image to the request
             $request->merge([
                 'image_path' => $image_path,
             ]);
@@ -127,7 +157,7 @@ class ProductsController extends Controller
         $product->update($request->all());
 
         return redirect()->route('products.index')
-            ->with('success', "Product ($product->name) UPDATED.");
+            ->with('success', __('app.products_update'));
     }
 
     /**
@@ -138,19 +168,34 @@ class ProductsController extends Controller
      */
     public function destroy($id)
     {
-        $product = Product::withoutGlobalScope('active')->findOrFail($id);
+        $product = Product::findOrFail($id);
 
         $product->delete();
 
         return redirect()->route('products.index')
-            ->with('success', "Product ($product->name) DELETED.");
+            ->with('success', __('app.products_delete', ['name' => $product->name]));
     }
 
     public function trash()
     {
-        $products = Product::withoutGlobalScope('active')->onlyTrashed()->paginate();
+        // for search
+        $request = request();
+        $query = Product::query();
+
+        if ($name = $request->query('name')) {
+            $query->where('name', 'LIKE', "%{$name}%");
+        }
+        if ($status = $request->query('status')) {
+            $query->where('status', '=', $status);
+        }
+
+        // for select menu (search)
+        $options = ['ative', 'draft'];
+
+        $products = $query->withoutGlobalScope('active')->onlyTrashed()->paginate();
         return view('admin.products.trash', [
             'products' => $products,
+            'options'  => $options,
         ]);
     }
 
@@ -161,12 +206,12 @@ class ProductsController extends Controller
             $product->restore();
 
             return redirect()->route('products.trash')
-                ->with('success', "Product ($product->name) RESTORED.");
+                ->with('success', __('app.products_restore', ['name' => $product->name]));
         }
 
         Product::onlyTrashed()->restore();
         return redirect()->route('products.index')
-            ->with('success', "All Products RESTORED.");
+            ->with('success', __('app.products_restore_all'));
     }
 
     public function forceDelete($id = null)
@@ -175,12 +220,23 @@ class ProductsController extends Controller
             $product = Product::withoutGlobalScope('active')->onlyTrashed()->findOrFail($id);
             $product->forceDelete();
 
+            // delete image
+            Storage::disk('public')->delete($product->image_path);
+
             return redirect()->route('products.trash')
-                ->with('success', "Product ($product->name) DELETED FOREVER.");
+                ->with('success', __('app.products_forcedelete', ['name' => $product->name]));
         }
+        
+        // get all images for trashed products in array
+        $trashedProducts = Product::onlyTrashed()->get();
+        foreach ($trashedProducts as $trashedProduct) {
+            $arr[] = $trashedProduct->image_path;
+        }
+        // delete the images in the array
+        Storage::disk('public')->delete($arr);
 
         Product::onlyTrashed()->forceDelete();
         return redirect()->route('products.index')
-            ->with('success', "All Trashed Products DELETED.");
+            ->with('success', __('app.products_forcedelete_all'));
     }
 }

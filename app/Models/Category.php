@@ -12,12 +12,17 @@ class Category extends Model
     use SoftDeletes;
     use HasFactory;
 
+    protected $fillable = [
+        'name', 'parent_id', 'slug', 'status'. 'description','image_path'
+    ];
+
     protected $hidden = [  // will not return in api request
         'created_at', 'updated_at', 'deleted_at',
     ];
 
     protected $appends = [  // will return in api request (shuld be geeter)
         'original_name',
+        'image_url',
     ];
 
     protected static function booted()
@@ -25,6 +30,17 @@ class Category extends Model
         static::creating(function (Category $category) {
             $category->slug = Str::slug($category->name);
         });
+    }
+
+    protected static function validateRules()
+    {
+        return [
+        'name'        => 'required|string|max:255|min:3',
+        'parent_id'   => 'nullable|int|exists:categories,id',
+        'description' => 'nullable|min:5',
+        'status'      => 'required|in:active,archived',
+        'image'       => 'image|max:512000|dimensions:min_width=300,min_height=300',
+        ];
     }
     
     // Accessors
@@ -45,6 +61,18 @@ class Category extends Model
     //     return $this->attributes['name'];
     // }
 
+    public function getImageUrlAttribute()
+    {
+        if (!$this->image_path) {
+            return asset('assets/admin/img/tds.png');
+        }
+        if (stripos($this->image_path, 'http') === 0) {
+            return $this->image_path;
+        }
+
+        return asset('storage/' . $this->image_path);
+    }
+
     public function products()
     {
         return $this->hasMany(Product::class, 'category_id', 'id');
@@ -60,7 +88,7 @@ class Category extends Model
     {
         return $this->belongsTo(Category::class, 'parent_id', 'id')
                     ->withDefault([
-                        'name' => 'Not Parent',
+                        'name' => 'No Parent',
                     ]);
     }
 
