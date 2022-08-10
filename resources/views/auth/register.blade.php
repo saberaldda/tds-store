@@ -9,7 +9,7 @@
         <!-- Validation Errors -->
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
-        <form method="POST" action="{{ route('register') }}">
+        <form method="POST" action="{{ route('register') }} " enctype="multipart/form-data">
             @csrf
 
             <!-- Name -->
@@ -24,6 +24,13 @@
                 <x-label for="email" :value="__('Email')" />
 
                 <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
+            </div>
+            
+            <!-- Image Address -->
+            <div class="mt-4">
+                <x-label for="image" :value="__('Image')" />
+
+                <x-input id="image" class="block mt-1 w-full" type="file" name="image" :value="old('image')" required />
             </div>
 
             <!-- Password -->
@@ -53,6 +60,12 @@
                 <x-button class="ml-4">
                     {{ __('Register') }}
                 </x-button>
+
+                @if (App::currentLocale() == 'ar')
+                    <a href="register?lang=en" class="ml-2 badge"><b>AR</a>
+                @elseif(App::currentLocale() == 'en')
+                    <a href="register?lang=ar" class="ml-2 badge"><b>EN</a>
+                @endif
             </div>
         </form>
     </x-auth-card>

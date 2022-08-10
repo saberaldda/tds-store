@@ -53,6 +53,7 @@ class CategoriesController extends Controller
         $category = new Category();
 
         return view('admin.Categories.create', [
+            'title'     => 'Create Category',
             'category'  => $category,
             'parents'   => $parents,
         ]);
@@ -123,7 +124,9 @@ class CategoriesController extends Controller
         }
         $parents = Category::withTrashed()->where('id', '<>', $category->id)->get() ;
 
-        return view('admin.categories.edit', compact('category', 'parents'));
+        $title = 'Edit Category';
+
+        return view('admin.categories.edit', compact('category', 'parents', 'title'));
     }
 
     /**
@@ -195,6 +198,7 @@ class CategoriesController extends Controller
         
         $categories = $query->withoutGlobalScope('active')->onlyTrashed()->paginate();
         return view('admin.categories.trash', [
+            'title'     => 'Categories Trash',
             'categories' => $categories,
             'options'    => $options,
         ]);

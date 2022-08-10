@@ -13,14 +13,16 @@ class Category extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', 'parent_id', 'slug', 'status'. 'description','image_path'
+        'name', 'parent_id', 'description', 'slug', 'status', 'image_path'
     ];
 
-    protected $hidden = [  // will not return in api request
+    // will not return in api request
+    protected $hidden = [
         'created_at', 'updated_at', 'deleted_at',
     ];
 
-    protected $appends = [  // will return in api request (shuld be geeter)
+    // will return in api request (shuld be geeter)
+    protected $appends = [
         'original_name',
         'image_url',
     ];

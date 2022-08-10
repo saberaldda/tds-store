@@ -53,6 +53,7 @@ class ProductsController extends Controller
     {
         $categories = Category::pluck('name', 'id');
         return view('admin.products.create', [
+            'title'     => 'Create Product',
             'categories' => $categories,
             'product' => new Product(),
         ]);
@@ -106,6 +107,7 @@ class ProductsController extends Controller
         return $product->ratings;
         
         return view('admin.products.show', [
+            'title'     => 'Show Product',
             'product' => $product,
         ]);
     }
@@ -121,6 +123,7 @@ class ProductsController extends Controller
         $product = Product::withoutGlobalScope('active')->findOrFail($id);
 
         return view('admin.products.edit', [
+            'title'     => 'Edit Product',
             'product'    => $product,
             // 'categories' => Category::all(),
             'categories' => Category::withTrashed()->pluck('name', 'id'),
@@ -194,6 +197,7 @@ class ProductsController extends Controller
 
         $products = $query->withoutGlobalScope('active')->onlyTrashed()->paginate();
         return view('admin.products.trash', [
+            'title'     => 'Products Trash',
             'products' => $products,
             'options'  => $options,
         ]);
