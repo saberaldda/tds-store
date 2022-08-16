@@ -2,7 +2,7 @@
     @if (isset($button))
         <button type="button" class="btn btn-sm btn-{{ $color }}" data-toggle="modal" data-target="#exampleModalCenter{{ @$id }}">{{ __($process) }}</button>
     @else
-        <button type="button" class="btn btn-sm btn-{{ $color }}" data-toggle="modal" data-target="#exampleModalCenter{{ @$id }}"><i class="fas {{ $icon }}"></i></button>
+        <button type="button" title="{{ __($process) }}" class="btn btn-sm btn-{{ $color }}" data-toggle="modal" data-target="#exampleModalCenter{{ @$id }}"><i class="fas {{ $icon }}"></i></button>
     @endif
 
 <!-- Modal -->

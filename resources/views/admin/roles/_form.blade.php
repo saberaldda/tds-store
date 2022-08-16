@@ -2,34 +2,38 @@
     <div class="alert alert-danger">
         <ul>
             @foreach ($errors->all() as $message)
-                <li> {{ $message }} </li>
+                <li> {{ __($message) }} </li>
             @endforeach
         </ul>
     </div>
 @endif
 
 <div class="form-group">
-    <label for="">Role Name</label>
+    <label for=""><h4>{{ __('Role Name') }}</h4></label>
     <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name', $role->name) }}">
     {{-- @if ($errors->has('name'))
         <p class="text-danger">{{ $errors->get('name')[0] }}</p>
     @endif --}}
     @error('name')
-        <p class="invalid-feedback">{{ $message }}</p>
+        <p class="invalid-feedback">{{ __($message) }}</p>
     @enderror
 </div>
 
-<div class="form-group">
-    @foreach (config('abilities') as $key => $value)
-    <div class="form-check">
-        <input class="form-check-input" type="checkbox" name="abilities[]" value="{{ $key }}" @if(in_array($key, $role->abilities ?? [] )) checked @endif>
-        <label class="form-check-label">
-        {{$value}}
-        </label>
+<div class="d-flex justify-content-between">
+    <div class="form-group">
+        <label for=""><h4>{{ __('Abilities') }}</h4></label>
+        @foreach (config('abilities') as $key => $value)
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="abilities[]" value="{{ $key }}" @if(in_array($key, $role->abilities ?? [] )) checked @endif>
+            <label class="form-check-label">
+            {{__($value)}}
+            </label>
+        </div>
+        @endforeach
     </div>
-    @endforeach
 </div>
 
+
 <div class="form-group">
-    <button type="submit" class="btn btn-primary">{{$button}}</button>
+    <button type="submit" class="btn btn-primary">{{ __($button) }}</button>
 </div>

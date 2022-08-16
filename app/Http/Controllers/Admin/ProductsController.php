@@ -18,6 +18,8 @@ class ProductsController extends Controller
      */
     public function index()
     {
+        $this->authorize('viewAny', Product::class);
+
         // for search
         $request = request();
         $query = Product::query();
@@ -51,6 +53,8 @@ class ProductsController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', Product::class);
+
         $categories = Category::pluck('name', 'id');
         return view('admin.products.create', [
             'title'     => 'Create Product',
@@ -67,9 +71,9 @@ class ProductsController extends Controller
      */
     public function store(Request $request)
     {
-        $request->merge([
-            'slug' => Str::slug($request->post('name'))
-        ]);
+        $this->authorize('create', Product::class);
+
+        // merge slug in model
 
         $request->validate(Product::validateRules());
 
@@ -96,12 +100,14 @@ class ProductsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Product $product
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Product $product)
     {
-        $product = Product::withoutGlobalScope('')->findOrFail($id);
+        $this->authorize('view', $product);
+
+        // $product = Product::withoutGlobalScope('')->findOrFail($id);
 
         // SELECT * FROM ratings WHERE rateable_id = ? AND rateable_type = 'App\Models\Product';
         return $product->ratings;
@@ -115,12 +121,14 @@ class ProductsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Product $product
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Product $product)
     {
-        $product = Product::withoutGlobalScope('active')->findOrFail($id);
+        $this->authorize('update', $product);
+
+        // $product = Product::withoutGlobalScope('active')->findOrFail($id);
 
         return view('admin.products.edit', [
             'title'     => 'Edit Product',
@@ -134,12 +142,16 @@ class ProductsController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\Product $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Product $product)
     {
-        $product = Product::withoutGlobalScope('active')->findOrFail($id);
+        $this->authorize('update', $product);
+
+        // merge slug in model
+        
+        // $product = Product::withoutGlobalScope('active')->findOrFail($id);
 
         $request->validate(Product::validateRules());
 
@@ -166,12 +178,14 @@ class ProductsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\Product $product
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Product $product)
     {
-        $product = Product::findOrFail($id);
+        $this->authorize('delete', $product);
+
+        // $product = Product::findOrFail($id);
 
         $product->delete();
 
@@ -181,6 +195,8 @@ class ProductsController extends Controller
 
     public function trash()
     {
+        $this->authorize('restore', Product::class);
+
         // for search
         $request = request();
         $query = Product::query();
@@ -205,6 +221,8 @@ class ProductsController extends Controller
 
     public function restore(Request $request, $id = null)
     {
+        $this->authorize('restore', Product::class);
+        
         if ($id) {
             $product = Product::withoutGlobalScope('active')->onlyTrashed()->findOrFail($id);
             $product->restore();
@@ -220,6 +238,8 @@ class ProductsController extends Controller
 
     public function forceDelete($id = null)
     {
+        $this->authorize('forceDelete', Product::class);
+
         if ($id) {
             $product = Product::withoutGlobalScope('active')->onlyTrashed()->findOrFail($id);
             $product->forceDelete();

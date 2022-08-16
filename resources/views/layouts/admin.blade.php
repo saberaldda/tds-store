@@ -8,7 +8,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ @$title ? @$title : config('app.name') }}</title>
+    <title>{{ @$title ? __(@$title) : __("Dashboard") }}</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -72,7 +72,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
             <a href="{{ route('dashboard') }}" class="brand-link">
-                <img src="{{ asset('assets/admin/img/tds.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+                <img src="{{ asset('assets/admin/img/tds.png') }}" alt="TheDarkSaber Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
                 <span class="brand-text font-weight-light">{{ config('app.name') }}</span>
             </a>
 
@@ -81,7 +81,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <!-- Sidebar user panel (optional) -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
-                        <img src="{{ Auth::user()->profile_photo_path }}" class="img-circle elevation-2" alt="User Image">
+                        <img src="{{ asset(Auth::user()->profile_photo_path) }}" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
                         <a href="#" class="d-block">{{ Auth::user()->name }}</a>
@@ -151,7 +151,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="" class="nav-link">
+                            <a href="{{ route('roles.index') }}" class="nav-link @if (URL::current() == route('roles.index')) active @endif">
                                 <i class="nav-icon fas fa-key"></i>
                                 <p>
                                     {{ __('Roles') }}
@@ -194,10 +194,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <div class="col-12">
                             <x-alert />
                             @yield('content')
-                            @if (URL::current() == 'http://localhost:8000/dashboard')
+                            @if (URL::current() == route('dashboard'))
                                 <a href="{{ route('categories.index') }}">{{ __('Categories') }}</a>
                                 <br>
                                 <a href="{{ route('products.index') }}">{{ __('Products') }}</a>
+                                <br>
+                                <a href="{{ route('roles.index') }}">{{ __('Roles') }}</a>
                             @endif
                         </div>
                     </div>

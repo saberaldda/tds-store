@@ -7,12 +7,14 @@
         <form class="form-inline">
             <div class="input-group input-group-sm">
                 <x-form-input name="name" placeholder="{{ __('Search') }} ..." :value="request('name')" class="form-control form-control-navbar" type="search" aria-label="Search"/>
-                <select name="status" class="form-control">
-                    <option value="" selected>{{ __('All') }}</option>
-                    @foreach($options as $option)
-                    <option value="{{ $option }}" @selected(request('status') == $option)>{{ ucfirst(__($option)) }}</option>
-                    @endforeach
-                </select>
+                @if (@$options)
+                    <select name="status" class="form-control">
+                        <option value="" selected>{{ __('All') }}</option>
+                        @foreach($options as $option)
+                        <option value="{{ $option }}" @selected(request('status') == $option)>{{ ucfirst(__($option)) }}</option>
+                        @endforeach
+                    </select>
+                @endif
                 <div class="input-group-append">
                     <button class="btn btn-navbar" type="submit">
                         <i class="fas fa-search"></i>

@@ -13,9 +13,16 @@ return [
 
     'products_store'                => 'تم انشاء المنتج.',
     'products_update'               => 'تم تحديث المنتج.',
-    'products_delete'               => 'تم حذف مصنف (:name).',
+    'products_delete'               => 'تم حذف منتج (:name).',
     'products_restore'              => 'تم إستعادة المنتج (:name).',
     'products_restore_all'          => 'تم استعادة كل المنتجات.',
     'products_forcedelete'          => 'تم حذف المنتج (:name) نهائياً.',
     'products_forcedelete_all'      => 'تم حذف كل المنتجات نهائياً.',
+    'products_store'                => 'تم انشاء المنتج.',
+    'products_update'               => 'تم تحديث المنتج.',
+    'products_delete'               => 'تم حذف مصنف (:name).',
+    
+    'roles_store'                => 'تم انشاء الصلاحية.',
+    'roles_update'               => 'تم تحديث الصلاحية.',
+    'roles_delete'               => 'تم حذف صلاحية (:name).',
 ];

@@ -17,6 +17,8 @@ class CategoriesController extends Controller
      */
     public function index()
     {
+        $this->authorize('viewAny', Category::class);
+
         $request = request();
         $query = Category::query();
 
@@ -49,6 +51,8 @@ class CategoriesController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', Category::class);
+
         $parents = Category::all();
         $category = new Category();
 
@@ -67,11 +71,9 @@ class CategoriesController extends Controller
      */
     public function store(Request $request)
     {
-        $request->merge([
-            //                    $clean['name']
-            'slug'   => Str::slug($request->name),
-            'status' => 'active',
-        ]);
+        $this->authorize('create', Category::class);
+
+        // merge slug in model
 
         $request->validate(Category::validateRules());
 
@@ -103,6 +105,8 @@ class CategoriesController extends Controller
      */
     public function show(Category $category)
     {
+        $this->authorize('view', $category);
+
         return $category->Categories()
                         ->with('category:id,name,status')
                         ->where('price', '>', 150)
@@ -113,15 +117,17 @@ class CategoriesController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Category $category
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Category $category)
     {
-        $category = Category::findOrFail($id);
-        if (!$category) {
-            abort(404);
-        }
+        $this->authorize('update', $category);
+
+        // $category = Category::findOrFail($id);
+        // if (!$category) {
+        //     abort(404);
+        // }
         $parents = Category::withTrashed()->where('id', '<>', $category->id)->get() ;
 
         $title = 'Edit Category';
@@ -133,11 +139,15 @@ class CategoriesController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\Category $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Category $category)
     {
+        $this->authorize('update', $category);
+
+        // $category = Category::find($id);
+
         $request->route('id');
         $request->merge([
             'slug' => Str::slug($request->name)
@@ -159,7 +169,6 @@ class CategoriesController extends Controller
             ]);
         }
 
-        $category = Category::find($id);
         $category->update( $request->all() );
 
         return redirect()->route('categories.index')
@@ -169,12 +178,14 @@ class CategoriesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\Category $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Category $category)
     {
-        $category = Category::withoutGlobalScope('active')->findOrFail($id);
+        $this->authorize('delete', $category);
+
+        // $category = Category::withoutGlobalScope('active')->findOrFail($id);
 
         $category->delete();
 
@@ -184,6 +195,8 @@ class CategoriesController extends Controller
 
     public function trash()
     {
+        $this->authorize('restore', Category::class);
+
         $request = request();
         $query = Category::query();
 
@@ -206,6 +219,8 @@ class CategoriesController extends Controller
 
     public function restore(Request $request, $id = null)
     {
+        $this->authorize('restore', Category::class);
+
         if ($id) {
             $category = Category::withoutGlobalScope('active')->onlyTrashed()->findOrFail($id);
             $category->restore();
@@ -221,6 +236,8 @@ class CategoriesController extends Controller
 
     public function forceDelete($id = null)
     {
+        $this->authorize('forceDelete', Category::class);
+
         if ($id) {
             $category = Category::withoutGlobalScope('active')->onlyTrashed()->findOrFail($id);
             $category->forceDelete();

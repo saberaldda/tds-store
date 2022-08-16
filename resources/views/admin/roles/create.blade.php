@@ -1,12 +1,12 @@
 @extends('layouts.admin')
 
-@section('title', 'Create A New Role')
+@section('title', __('Create A New Role'))
 
 @section('breadcrumb')
 <ol class="breadcrumb float-sm-right">
-    <li class="breadcrumb-item"><a href="#">Home</a></li>
-    <li class="breadcrumb-item"><a href="#">Roles</a></li>
-    <li class="breadcrumb-item active">Create</li>
+    <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">{{ __('Home') }}</a></li>
+    <li class="breadcrumb-item"><a href="{{ route('roles.index') }}">{{ __('Roles') }}</a></li>
+    <li class="breadcrumb-item active">{{ __('Create') }}</li>
 </ol>
 @endsection
 

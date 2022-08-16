@@ -4,7 +4,9 @@
     <div class="d-flex justify-content-between">
         <h2>{{ __('Trashed Products') }}</h2>
         <div class="">
+            @can('viewAny', App\Model\Product::class)
             <a class="btn btn-sm btn-outline-primary" href="{{ route('products.index') }}">{{ __('Products') }}</a>
+            @endcan
         </div>
     </div>
 @endsection
@@ -23,18 +25,22 @@
 @section('content')
 
     <div class="d-flex mb-4">
+        @can('restore', App\Model\Product::class)
         <form action="{{ route('products.restore') }}" method="post" class="mr-3">
             @csrf
             @method('put')
             {{-- <button type="submit" class="btn btn-sm btn-warning">{{ __('Restore All') }}</button> --}}
             <x-popup-window :process="'Restore All'" :color="'warning'" :id="'ra'" :button='1'/>
         </form>
+        @endcan
 
+        @can('forceDelete', App\Model\Product::class)
         <form action="{{ route('products.force-delete') }}" method="post">
             @csrf
             @method('delete')
             <x-popup-window :process="'Delete All'" :color="'danger'" :id="'da'" :button='1'/>
         </form>
+        @endcan
     </div>
 
     <table class="table text-center table-bordered">
@@ -66,17 +72,21 @@
                     <td> {{ $product->deleted_at }} </td>
 
                     <td class="d-flex justify-content-between">
+                        @can('restore', App\Model\Product::class)
                         <form action="{{ route('products.restore', $product->id) }}" method="post">
                             @csrf
                             @method('put')
                             <x-popup-window :process="'Restore'" :color="'primary'" :id="$loop->iteration.'r'" :icon="'fa-trash-restore'"/>
                         </form>
+                        @endcan
 
+                        @can('forceDelete', App\Model\Product::class)
                         <form action="{{ route('products.force-delete', $product->id) }}" method="post">
                             @csrf
                             @method('delete')
                             <x-popup-window :process="'Delete'" :color="'danger'" :id="$loop->iteration.'d'" :icon="'fa-trash-alt'"/>
                         </form>
+                        @endcan
                     </td>
                 </tr>
             @endforeach

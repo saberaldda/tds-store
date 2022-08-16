@@ -13,15 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('ratings', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->enum('type', ['user', 'admin', 'super-admin']);
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
-            $table->string('profile_photo_path', 2048)->nullable();
+            $table->foreignId('user_id')->nullable()->constrained('users')->nullOnDelete();
+            // rateable_id BIGINT unsigind
+            // rateable_type VARCHAR
+            $table->morphs('rateable');
+            $table->enum('rating', [1, 2, 3, 4, 5]);
             $table->timestamps();
         });
     }
@@ -33,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('ratings');
     }
 };

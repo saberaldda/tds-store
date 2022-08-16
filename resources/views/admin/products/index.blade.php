@@ -4,11 +4,12 @@
     <div class="ml-5 justify-content-between">
         <h2 class="font-weight-bold">{{ __($title) }}</h2>
         <div>
-            {{-- @can('create', 'App\Model\Product') --}}
-            {{-- @can('create', App\Model\Product::class) --}}
+            @can('create', App\Model\Product::class)
             <a class="btn btn-sm btn-outline-primary font-weight-bold" href="{{ route('products.create') }}">{{ __('Create') }}</a>
-            {{-- @endcan --}}
+            @endcan
+            @can('restore', App\Model\Product::class)
             <a class="btn btn-sm btn-outline-danger font-weight-bold" href="{{ route('products.trash') }}">{{ __('Trash') }}</a>
+            @endcan
         </div>
     </div>
 @endsection
@@ -53,14 +54,20 @@
                     <td> <div class="btn btn-sm @if ($product->status == 'active') btn-success @else btn-warning @endif">{{ __($product->status) }}</div></td>
                     <td> {{ $product->created_at }} </td>
                     <td class="d-flex justify-content-between ">
-                        <a href="{{ route('products.show', $product->id) }}" class="btn btn-sm btn-success"><i class="fas fa-eye"></i></a>
-                        <a href="{{ route('products.edit', $product->id) }}" class="btn btn-sm btn-primary"><i class="fas fa-edit"></i></a>
-                        
+                        @can('view', $product)
+                        <a href="{{ route('products.show', $product->id) }}" class="btn btn-sm btn-success" title="{{ __('Show') }}"><i class="fas fa-eye"></i></a>
+                        @endcan
+                        @can('update', $product)
+                        <a href="{{ route('products.edit', $product->id) }}" class="btn btn-sm btn-primary" title="{{ __('Edit') }}"><i class="fas fa-edit"></i></a>
+                        @endcan
+
+                        @can('delete', $product)
                         <form action="{{ route('products.destroy', $product->id) }}" method="post">
                             @csrf
                             @method('delete')
                             <x-popup-window :process="'Delete'" :color="'danger'" :id="$loop->iteration" :icon="'fa-trash'"/>
                         </form>
+                        @endcan
                     </td>
                 </tr>
             @endforeach

@@ -63,10 +63,10 @@ class Product extends Model
         return [
             'name'        => 'required|max:255',
             'category_id' => 'required|int|exists:categories,id',
-            'description' => 'nullable',
+            'description' => 'nullable|min:5',
             'image'       => 'nullable|image',
                                           //|dimensions:min_width=300,min_height-300',
-            'price'       => 'nullable|numeric|min:0',
+            'price'       => 'required|numeric|min:0',
             'sale_price'  => 'nullable|numeric|min:0',
             'quantity'    => 'nullable|int|min:0',
             'sku'         => 'nullable',

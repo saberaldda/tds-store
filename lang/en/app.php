@@ -17,5 +17,9 @@ return [
     'products_restore'              => 'Product (:name) RESTORED.',
     'products_restore_all'          => 'All Products RESTORED.',
     'products_forcedelete'          => 'Product (:name) DELETED FOREVER.^-^',
-    'products_forcedelete_all'      => 'All Trashed Products DELETED.'
+    'products_forcedelete_all'      => 'All Trashed Products DELETED.',
+
+    'roles_store'                => 'Role CREATED.',
+    'roles_update'               => 'Role UPDATED.',
+    'roles_delete'               => 'Role (:name) DELETED.',
 ];

@@ -29,8 +29,15 @@ class Category extends Model
 
     protected static function booted()
     {
-        static::creating(function (Category $category) {
-            $category->slug = Str::slug($category->name);
+        // for solve slug dublecate (slug slug1 slug2)
+        static::creating(function(Category $category) {
+            $slug = Str::slug($category->name);
+
+            $count = Category::where('slug', 'LIKE', "{$slug}%")->count();
+            if ($count) {
+                $slug.= '-' . ($count + 1);
+            }
+            $category->slug = $slug;
         });
     }
 
@@ -40,7 +47,6 @@ class Category extends Model
         'name'        => 'required|string|max:255|min:3',
         'parent_id'   => 'nullable|int|exists:categories,id',
         'description' => 'nullable|min:5',
-        'status'      => 'required|in:active,archived',
         'image'       => 'image|max:512000|dimensions:min_width=300,min_height=300',
         ];
     }
