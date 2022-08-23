@@ -43,8 +43,8 @@
         @endcan
     </div>
 
-    <table class="table text-center table-bordered">
-        <thead>
+    <table class="table table-bordered">
+        <thead  style="position: sticky;top: 0">
             <tr>
                 <th>{{ __('ID') }}</th>
                 <th>{{ __('Image') }}</th>

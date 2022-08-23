@@ -1,8 +1,12 @@
 <?php
 
 use App\Http\Controllers\Admin\CategoriesController;
+use App\Http\Controllers\Admin\CountriesController;
 use App\Http\Controllers\Admin\ProductsController;
+use App\Http\Controllers\Admin\RatingController;
 use App\Http\Controllers\Admin\RolesController;
+use App\Http\Controllers\Admin\UsersController;
+use App\Http\Controllers\Home\ProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,7 +27,7 @@ Route::get('/', function () {
 require __DIR__.'/auth.php';
 
 Route::prefix('admin')
-    ->middleware(['auth'])
+    ->middleware(['auth', 'auth.type:super-admin,admin'])
     ->group(function () {
 
         Route::get('/dashboard', function () {
@@ -53,5 +57,27 @@ Route::prefix('admin')
                 Route::resource('/roles', RolesController::class);
             });
 
-        // Route::resource('/countries', 'CountriesController');
+        Route::controller(UsersController::class)
+            ->group(function () {
+                Route::get('/users/trash', 'trash')->name('users.trash');
+                Route::put('/users/trash/{product?}', 'restore')->name('users.restore');
+                Route::delete('/users/trash/{product?}', 'forceDelete')->name('users.force-delete');
+                Route::resource('/users', UsersController::class);
+            });
+
+        Route::controller(CountriesController::class)
+            ->group(function () {
+                Route::resource('/countries', CountriesController::class)->except(['show','edit','update']);
+            });
+            
+        Route::controller(RatingController::class)
+        ->group(function () {
+            Route::get('ratings/','index')->name('ratings.index');
+            Route::get('ratings/{type}/create','create')->where('type', 'product|profile')->name('ratings.create');
+            Route::post('ratings/{type}','store')->where('type', 'product|profile')->name('ratings.store');
+        });
+
     });
+
+Route::get('products', [ProductController::class, 'index'])->name('products');
+Route::get('products/{slug}', [ProductController::class, 'show'])->name('product.details');

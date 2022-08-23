@@ -24,7 +24,6 @@ class Role extends Model
         return $this->belongsToMany(User::class, 'role_user', 'role_id', 'user_id', 'id', 'id')
                     ->withPivot([])
                     ->as('premissions')
-                    // ->using(RoleUser::class)
-                    ;
+                    ->using(RoleUser::class);
     }
 }

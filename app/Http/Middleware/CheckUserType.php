@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Providers\RouteServiceProvider;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -25,7 +26,7 @@ class CheckUserType
         }
 
         if (! in_array($user->type, $types)) {
-            abort(403, 'FORBIDDEN || chek User type in Middleware');
+            return redirect(RouteServiceProvider::HOME);
         }
 
         return $next($request);

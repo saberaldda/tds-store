@@ -17,6 +17,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->unique()->constrained('users', 'id')->cascadeOnDelete();
             $table->string('address');
+            $table->enum('gender',['male','female'])->nullable();
+            $table->date("birthdate")->nullable();
             $table->timestamps();
         });
     }

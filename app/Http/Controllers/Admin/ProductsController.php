@@ -7,6 +7,7 @@ use Illuminate\Support\Str;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class ProductsController extends Controller
@@ -32,7 +33,7 @@ class ProductsController extends Controller
         }
 
         $products = $query->withoutGlobalScopes([ActiveStatusScope::class])
-            ->with('category.parent')
+            ->with('category.parent','user')
             ->select(['products.*',])
             ->paginate();
 
@@ -90,6 +91,12 @@ class ProductsController extends Controller
                 'image_path' => $image_path,
             ]);
         }
+
+        // merge user_id to the request
+        $user_id = Auth::user()->id;
+        $request->merge([
+            'user_id' => $user_id,
+        ]);
 
         $product = Product::create($request->all());
 
@@ -245,7 +252,9 @@ class ProductsController extends Controller
             $product->forceDelete();
 
             // delete image
-            Storage::disk('public')->delete($product->image_path);
+            if($product->image_path){
+                Storage::disk('public')->delete($product->image_path);
+            }
 
             return redirect()->route('products.trash')
                 ->with('success', __('app.products_forcedelete', ['name' => $product->name]));
@@ -257,7 +266,7 @@ class ProductsController extends Controller
             $arr[] = $trashedProduct->image_path;
         }
         // delete the images in the array
-        Storage::disk('public')->delete($arr);
+        Storage::disk('public')->delete(array_filter($arr));
 
         Product::onlyTrashed()->forceDelete();
         return redirect()->route('products.index')

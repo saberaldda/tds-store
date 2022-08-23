@@ -29,7 +29,7 @@ class CategoriesController extends Controller
             $query->where('status', '=', $status);
         }
 
-        $entries = $query->Paginate();
+        $entries = $query->withCount('products')->Paginate();
 
         $success = session()->get('success');
 
@@ -107,9 +107,10 @@ class CategoriesController extends Controller
     {
         $this->authorize('view', $category);
 
-        return $category->Categories()
-                        ->with('category:id,name,status')
-                        ->where('price', '>', 150)
+        return $category->Products()
+                        // ->with('category:id,name,status')
+                        // ->where('price', '>', 150)
+                        // ->has('products)
                         ->orderBy('price', 'ASC')
                         ->get();
     }
@@ -243,7 +244,9 @@ class CategoriesController extends Controller
             $category->forceDelete();
 
             // delete image
-            Storage::disk('public')->delete($category->image_path);
+            if($category->image_path){
+                Storage::disk('public')->delete($category->image_path);
+            }
             
             return redirect()->route('categories.trash')
                 ->with('success', __('app.categories_forcedelete', ['name' => $category->name]));
@@ -255,7 +258,7 @@ class CategoriesController extends Controller
             $arr[] = $trashedCategory->image_path;
         }
         // delete the images in the array
-        Storage::disk('public')->delete($arr);
+        Storage::disk('public')->delete(array_filter($arr));
 
         Category::onlyTrashed()->forceDelete();
         return redirect()->route('categories.index')

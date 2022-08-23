@@ -81,7 +81,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <!-- Sidebar user panel (optional) -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
-                        <img src="{{ asset(Auth::user()->profile_photo_path) }}" class="img-circle elevation-2" alt="User Image">
+                        <img src="{{ asset(Auth::user()->image_url) }}" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
                         <a href="#" class="d-block">{{ Auth::user()->name }}</a>
@@ -109,56 +109,72 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <!-- Add icons to the links using the .nav-icon class
                             with font-awesome or any other icon font library -->
-                        {{-- <li class="nav-item menu-open">
-                            <a href="#" class="nav-link active">
+                        <li class="nav-item menu-open">
+                            <a href="{{ route('dashboard') }}" class="nav-link @if (URL::current() == route('dashboard')) active @endif">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
-                                    Starter Pages
+                                    {{ __('Dashboard') }}
                                     <i class="right fas fa-angle-left"></i>
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link active">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Active Page</p>
+                                    <a href="{{ route('users.index') }}" class="nav-link @if (URL::current() == route('users.index')) active @endif">
+                                        <i class="nav-icon fas fa-user"></i>
+                                        <p>
+                                            {{ __('Users') }}
+                                            <span class="right badge badge-danger">{{ __('New') }}</span>
+                                        </p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Inactive Page</p>
+                                    <a href="{{ route('categories.index') }}" class="nav-link @if (URL::current() == route('categories.index')) active @endif">
+                                        <i class="nav-icon fas fa-tags"></i>
+                                        <p>
+                                            {{ __('Categories') }}
+                                            <span class="right badge badge-danger">{{ __('New') }}</span>
+                                        </p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('products.index') }}" class="nav-link @if (URL::current() == route('products.index')) active @endif">
+                                        <i class="nav-icon fas fa-shopping-bag"></i>
+                                        <p>
+                                            {{ __('Products') }}
+                                            <span class="right badge badge-danger">{{ __('New') }}</span>
+                                        </p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('roles.index') }}" class="nav-link @if (URL::current() == route('roles.index')) active @endif">
+                                        <i class="nav-icon fas fa-key"></i>
+                                        <p>
+                                            {{ __('Roles') }}
+                                            <span class="right badge badge-danger">{{ __('New') }}</span>
+                                        </p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('countries.index') }}" class="nav-link @if (URL::current() == route('countries.index')) active @endif">
+                                        <i class="nav-icon fas fa-city"></i>
+                                        <p>
+                                            {{ __('Countries') }}
+                                            <span class="right badge badge-danger">{{ __('New') }}</span>
+                                        </p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('ratings.index') }}" class="nav-link @if (URL::current() == route('ratings.index')) active @endif">
+                                        <i class="fas fa-star-half-alt"></i>
+                                        <p>
+                                            {{ __('Ratings') }}
+                                            <span class="right badge badge-danger">{{ __('New') }}</span>
+                                        </p>
                                     </a>
                                 </li>
                             </ul>
-                        </li> --}}
-                        <li class="nav-item">
-                            <a href="{{ route('categories.index') }}" class="nav-link @if (URL::current() == route('categories.index')) active @endif">
-                                <i class="nav-icon fas fa-tags"></i>
-                                <p>
-                                    {{ __('Categories') }}
-                                    <span class="right badge badge-danger">{{ __('New') }}</span>
-                                </p>
-                            </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="{{ route('products.index') }}" class="nav-link @if (URL::current() == route('products.index')) active @endif">
-                                <i class="nav-icon fas fa-shopping-bag"></i>
-                                <p>
-                                    {{ __('Products') }}
-                                    <span class="right badge badge-danger">{{ __('New') }}</span>
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('roles.index') }}" class="nav-link @if (URL::current() == route('roles.index')) active @endif">
-                                <i class="nav-icon fas fa-key"></i>
-                                <p>
-                                    {{ __('Roles') }}
-                                    <span class="right badge badge-danger">{{ __('New') }}</span>
-                                </p>
-                            </a>
-                        </li>
+                        
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->
@@ -195,11 +211,75 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <x-alert />
                             @yield('content')
                             @if (URL::current() == route('dashboard'))
-                                <a href="{{ route('categories.index') }}">{{ __('Categories') }}</a>
-                                <br>
-                                <a href="{{ route('products.index') }}">{{ __('Products') }}</a>
-                                <br>
-                                <a href="{{ route('roles.index') }}">{{ __('Roles') }}</a>
+                                <div class="d-flex">
+                                    <div class="col-lg-3 col-6">
+                                        <!-- small box -->
+                                        <div class="small-box bg-info">
+                                            <div class="inner">
+                                                {{-- Count The Number Of Current Guests In Last 30m --}}
+                                                <h3>{{ App\Models\Active::users(30)->get()->count() +
+                                                        App\Models\Active::guests(30)->get()->count() }}</h3>
+                                
+                                                <p>{{ __('Live Guests') }}</p>
+                                            </div>
+                                            <div class="icon">
+                                                <i class="fas fa-users"></i>
+                                            </div>
+                                            @isset($link)
+                                                <a href="{{ $link }}" class="small-box-footer">{{ __('More info') }}<i class="fas fa-arrow-circle-right"></i></a>
+                                            @endisset
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-6">
+                                        <!-- small box -->
+                                        <div class="small-box bg-success">
+                                            <div class="inner">
+                                                {{-- Count The Number Of Current Auth Users In Last 30m --}}
+                                                <h3>{{ App\Models\Active::users(30)->get()->count() }}</h3>
+                                
+                                                <p>{{ __('Current User Registrations') }}</p>
+                                            </div>
+                                            <div class="icon">
+                                                <i class="fas fa-user-plus"></i>
+                                            </div>
+                                            @isset($link)
+                                                <a href="{{ $link }}" class="small-box-footer">{{ __('More info') }} <i class="fas fa-arrow-circle-right"></i></a>
+                                            @endisset
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-6">
+                                        <!-- small box -->
+                                        <div class="small-box bg-warning">
+                                            <div class="inner">
+                                                <h3>{{ App\Models\Product::get()->count() }}</h3>
+                                
+                                                <p>{{ __('Active Products Number') }}</p>
+                                            </div>
+                                            <div class="icon">
+                                                <i class="fas fa-shopping-bag"></i>
+                                            </div>
+                                            @isset($link)
+                                                <a href="{{ $link }}" class="small-box-footer">{{ __('More info') }} <i class="fas fa-arrow-circle-right"></i></a>
+                                            @endisset
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-6">
+                                        <!-- small box -->
+                                        <div class="small-box bg-danger">
+                                            <div class="inner">
+                                                <h3>{{ App\Models\Category::get()->count() }}</h3>
+                                
+                                                <p>{{ __('Active Categories Number') }}</p>
+                                            </div>
+                                            <div class="icon">
+                                                <i class="fas fa-tags"></i>
+                                            </div>
+                                            @isset($link)
+                                                <a href="{{ $link }}" class="small-box-footer">{{ __('More info') }} <i class="fas fa-arrow-circle-right"></i></a>
+                                            @endisset
+                                        </div>
+                                    </div>
+                                </div>
                             @endif
                         </div>
                     </div>

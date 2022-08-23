@@ -4,13 +4,14 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -22,6 +23,8 @@ class User extends Authenticatable
         'email',
         'password',
         'profile_photo_path',
+        'type',
+        'country_id',
     ];
 
     /**
@@ -34,6 +37,10 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    protected $appends = [
+        'image_url',
+    ];
+
     /**
      * The attributes that should be cast.
      *
@@ -43,6 +50,20 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public static function validateRules()
+    {
+        return [
+        'name'                  => 'required|max:255',
+        'image'                 => 'nullable|image',
+        'email'                 => 'required|email|unique:users,email',
+        'type'                  => 'required',
+        'password'              => 'required|min:8',
+        'password_confirmation' => 'required|same:password',
+        'country'               => 'nullable',
+        ];
+    }
+
+    // for gates and policies
     public function hasAbility($ability)
     {
         $roles = Role::whereRaw('roles.id IN (SELECT role_id FROM role_user WHERE user_id = ?)', [
@@ -58,10 +79,29 @@ class User extends Authenticatable
         return false;
     }
 
+    public function getImageUrlAttribute()
+    {
+        if (!$this->profile_photo_path) {
+            return asset('assets/admin/img/tds.png');
+        }
+        if (stripos($this->profile_photo_path, 'http') === 0) {
+            return $this->profile_photo_path;
+        }
+        return asset('storage/' . $this->profile_photo_path);
+    }
+
     public function roles()
     {
         return $this->belongsToMany(Role::class, 'role_user', 'user_id', 'role_id', 'id', 'id');
     }
 
-    
+    public function country()
+    {
+        return $this->belongsTo(Country::class, 'country_id', 'id')->withDefault();
+    }
+
+    public function products()
+    {
+        return $this->hasMany(Product::class, 'user_id', 'id');
+    }
 }

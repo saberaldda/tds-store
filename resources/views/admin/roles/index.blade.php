@@ -23,11 +23,12 @@
 
 @section('content')
 
-    <table class="table text-center table-bordered">
-        <thead>
+    <table class="table table-bordered table-sm">
+        <thead  style="position: sticky;top: 0">
             <tr>
                 <th>{{ __('ID') }}</th>
                 <th>{{ __('Role Name') }}</th>
+                <th class=" text-center">{{ __('Abilities') }}</th>
                 <th>{{ __('User/s Name') }}</th>
                 <th>{{ __('Ceated At') }}</th>
                 <th style="width:179px">{{ __('Oprations') }}</th>
@@ -38,6 +39,7 @@
                 <tr>
                     <td>{{ $role->id }}</td>
                     <td> {{ $role->name }} </td>
+                    <td> @foreach ($role->abilities as $ability){{ $ability }}/ @endforeach</td>
                     <td> @foreach ($role->users as $user)
                         {{ $user->name . " , "}}
                         @endforeach 

@@ -54,20 +54,20 @@ class Category extends Model
     // Accessors
     // Exists Attribute get{AttributeName}Attribute()
     // $model->name
-    // public function getNameAttribute($value)
-    // {
-    //     if ($this->trashed()) {
-    //         return $value . ' (Deleted)';
-    //     }
-    //     return $value;
-    // }
+    public function getNameAttribute($value)
+    {
+        if ($this->trashed()) {
+            return $value . ' (Deleted)';
+        }
+        return $value;
+    }
 
     // Non-exists Attribute
     // $model->original_name
-    // public function getOriginalNameAttribute()
-    // {
-    //     return $this->attributes['name'];
-    // }
+    public function getOriginalNameAttribute()
+    {
+        return $this->attributes['name'];
+    }
 
     public function getImageUrlAttribute()
     {

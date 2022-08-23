@@ -26,6 +26,8 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             UsersTableSeeder::class,
+            CountriesSeeder::class,
+            ProfilesSeeder::class,
         ]);
         Category::factory(5)->create();
         Category::factory(25)->create();

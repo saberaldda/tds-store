@@ -23,4 +23,16 @@ return [
     'roles.update'              => 'Update role',
     'roles.delete'              => 'Delete role',
     'roles.assign-user'         => 'Assign user/s to role',
+
+    'users.view-any'            => 'View any user',
+    'users.view'                => 'View user',
+    'users.create'              => 'create new user',
+    'users.update'              => 'Update user',
+    'users.delete'              => 'Delete user',
+    'users.restore'             => 'Restore user',
+    'users.force-delete'        => 'Force Delete user',
+
+    'countries.view-any'        => 'View any country',
+    'countries.create'          => 'create new country',
+    'countries.delete'          => 'Delete country',
 ];

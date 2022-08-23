@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -19,7 +20,7 @@ class Product extends Model
 
     protected $fillable = [
         'name', 'slug', 'category_id', 'description', 'image_path', 'price', 'sale_price', 'quantity', 
-        'sku','weight', 'width', 'height', 'length', 'status'
+        'sku','weight', 'width', 'height', 'length', 'status', 'user_id',
     ];
 
     protected $casts = [
@@ -30,7 +31,7 @@ class Product extends Model
     protected $appends = [
         'image_url',
         'formatted_price',
-        // 'permalink'
+        'permalink'
     ];
 
     protected static function booted()
@@ -47,16 +48,16 @@ class Product extends Model
         });
     }
 
-    // public function scopeActive(Builder $builder)
-    // {
-    //     $builder->where('status', '=', 'active');
-    // }
+    public function scopeActive(Builder $builder)
+    {
+        $builder->where('status', '=', 'active');
+    }
 
-    // public function scopePrice(Builder $builder,$from,$to)
-    // {
-    //     $builder->where('price', '>=', $from)
-    //             ->where('price', '<=', $to);
-    // }
+    public function scopePrice(Builder $builder,$from,$to)
+    {
+        $builder->where('price', '>=', $from)
+                ->where('price', '<=', $to);
+    }
 
     public static function validateRules()
     {
@@ -106,10 +107,10 @@ class Product extends Model
         return $formatter->formatCurrency($this->price, 'USD');
     }
 
-    // public function getPermalinkAttribute()
-    // {
-    //     return route('product.details', $this->slug);
-    // }
+    public function getPermalinkAttribute()
+    {
+        return route('product.details', $this->slug);
+    }
 
     public function category()
     {
@@ -119,10 +120,10 @@ class Product extends Model
 
     public function user(){
         return $this->belongsTo(User::class, 'user_id', 'id')
-            ->withDefault();
+                    ->withDefault();
     }
 
-    public function ratings()
+    public function ratings() 
     {
         return $this->morphMany(Rating::class, 'rateable', 'rateable_type', 'rateable_id', 'id');
     }

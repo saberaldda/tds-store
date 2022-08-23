@@ -11,9 +11,6 @@
 <div class="form-group">
     <label for=""><h4>{{ __('Role Name') }}</h4></label>
     <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name', $role->name) }}">
-    {{-- @if ($errors->has('name'))
-        <p class="text-danger">{{ $errors->get('name')[0] }}</p>
-    @endif --}}
     @error('name')
         <p class="invalid-feedback">{{ __($message) }}</p>
     @enderror

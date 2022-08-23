@@ -76,7 +76,10 @@ class RolesController extends Controller
             'abilities' => 'required|array',
         ]);
 
-        $role = Role::create($request->all());
+        $role = Role::create([
+            'name' => ucfirst($request->post('name')),
+            'abilities' => $request->post('abilities'),
+        ]);
 
         return redirect()->route('roles.index')->with('success', __('app.roles_store'));
     }
@@ -131,7 +134,10 @@ class RolesController extends Controller
         ]);
 
         // $role = Role::findOrFail($id);
-        $role->update($request->all());
+        $role->update([
+            'name' => ucfirst($request->post('name')),
+            'abilities' => $request->post('abilities'),
+        ]);
 
         return redirect()->route('roles.index')->with('success', __('app.roles_update'));
     }

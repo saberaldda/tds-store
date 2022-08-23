@@ -26,12 +26,13 @@
 
 @section('content')
 
-    <table class="table text-center table-bordered">
-        <thead>
+    <table class="table table-bordered table-sm">
+        <thead  style="position: sticky;top: 0">
             <tr>
                 <th>{{ __('ID') }}</th>
                 <th>{{ __('Image') }}</th>
                 <th>{{ __('Name') }}</th>
+                <th>{{ __('User Name') }}</th>
                 <th>{{ __('Description') }}</th>
                 <th>{{ __('Category') }}</th>
                 <th>{{ __('Price') }}</th>
@@ -47,6 +48,7 @@
                     <td>{{ $product->id }}</td>
                     <td> <img src="{{ $product->image_url }}" alt="TheDarkSaber" width="80"></td>
                     <td> {{ $product->name }} </td>
+                    <td> {{ $product->user->name }} </td>
                     <td> {{ $product->description }} </td>
                     <td> @if ($product->category->name) {{  $product->category->name  }} @else {{ __('No Category') }} @endif</td> {{-- {{ $product->category->parent->name }} --}}
                     <td> {{ $product->formatted_price }} </td>

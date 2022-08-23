@@ -19,7 +19,18 @@ return [
     'products_forcedelete'          => 'Product (:name) DELETED FOREVER.^-^',
     'products_forcedelete_all'      => 'All Trashed Products DELETED.',
 
-    'roles_store'                => 'Role CREATED.',
-    'roles_update'               => 'Role UPDATED.',
-    'roles_delete'               => 'Role (:name) DELETED.',
+    'users_store'                   => 'User CREATED.',
+    'users_update'                  => 'User UPDATED.',
+    'users_delete'                  => 'User (:name) DELETED.',
+    'users_restore'                 => 'User (:name) RESTORED.',
+    'users_restore_all'             => 'All Users RESTORED.',
+    'users_forcedelete'             => 'User (:name) DELETED FOREVER.^-^',
+    'users_forcedelete_all'         => 'All Trashed Users DELETED.',
+
+    'roles_store'                   => 'Role CREATED.',
+    'roles_update'                  => 'Role UPDATED.',
+    'roles_delete'                  => 'Role (:name) DELETED.',
+
+    'countries_store'               => 'Country CREATED.',
+    'countries_delete'              => 'Country (:name) DELETED.',
 ];

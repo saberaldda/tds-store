@@ -26,8 +26,8 @@
 
 @section('content')
 
-    <table class="table text-center table-bordered">
-        <thead>
+    <table class="table table-bordered table-sm">
+        <thead  style="position: sticky;top: 0">
             <tr>
                 <th>{{ __('ID') }}</th>
                 <th>{{ __('Image') }}</th>
@@ -48,7 +48,7 @@
                     <td> {{ $category->name }}</td>
                     <td> {{ $category->description }}</td>
                     <td> {{ @$category->parent->name }}</td> {{-- @ for escape the empty result --}}
-                    <td> {{ $category->count }}</td> {{-- products as count --}}
+                    <td> {{ $category->products_count }}</td> {{-- products as count --}}
                     <td> <div class="btn btn-sm  @if ($category->status == 'active') btn-success @else btn-warning @endif">{{ __($category->status) }}</div></td>
                     <td> {{ $category->created_at }}</td>
                     <td class="d-flex justify-content-between ">
