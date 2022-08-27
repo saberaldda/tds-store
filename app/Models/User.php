@@ -104,4 +104,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Product::class, 'user_id', 'id');
     }
+
+    public function profile(){
+        return $this->hasOne(Profile::class, 'user_id', 'id')
+                    ->withDefault();
+    }
 }

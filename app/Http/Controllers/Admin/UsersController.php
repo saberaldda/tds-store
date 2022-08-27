@@ -6,6 +6,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Country;
+use App\Models\Profile;
+use App\Models\Rating;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
@@ -31,7 +33,7 @@ class UsersController extends Controller
             $query->where('email', 'LIKE', "%{$email}%");
         }
 
-        $users = $query->with('roles', 'country')->paginate();
+        $users = $query->with('roles', 'country', 'profile.ratings')->paginate();
         // dd($users);
 
         return view('admin.users.index', [
@@ -104,6 +106,22 @@ class UsersController extends Controller
     public function show(user $user)
     {
         $this->authorize('view', $user);
+
+        $user = $user->load(['roles', 'country',  'profile.ratings']);
+        // $rating = Rating::where([
+        //     'rateable_type' => Profile::class,
+        //     'rateable_id'   => $user->id,
+        // ])->get();
+
+        $rating_average = round($user->profile->ratings->avg('rating'), 1);
+
+        // dd($user);
+        return view('admin.users.show', [
+            'title' => "User Detail",
+            'user'  => $user,
+            'rating_average' => $rating_average,
+        ]);
+
     }
 
     /**
@@ -149,6 +167,11 @@ class UsersController extends Controller
         // sheck if image in request
         if ($request->hasFile('image')) {
             $file = $request->file('image'); // UplodedFile Object
+
+            // delete old image
+            if ($user->profile_photo_path) {
+                Storage::disk('public')->delete($user->profile_photo_path);
+            }
 
             $image_path = $file->storeAs('uploads',
             time() . $file->getClientOriginalName(),

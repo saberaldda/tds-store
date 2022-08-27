@@ -160,6 +160,11 @@ class CategoriesController extends Controller
         if ($request->hasFile('image')) {
             $file = $request->file('image'); // UplodedFile Object
 
+            // delete old image
+            if ($category->image_path) {
+                Storage::disk('public')->delete($category->image_path);
+            }
+
             $image_path = $file->storeAs('uploads',
             time() . $file->getClientOriginalName(),
             'public');

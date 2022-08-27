@@ -84,26 +84,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <img src="{{ asset(Auth::user()->image_url) }}" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block">{{ Auth::user()->name }}</a>
+                        <a href="{{ route('profile.show', Auth::id()) }}" class="d-block">{{ Auth::user()->name }}</a>
                         <form action="{{ route('logout') }}" method="post">
                         @csrf
                         <button type="submit" class="btn btn-sm btn-outline-primary mt-4 ml-4 font-weight-bold">{{ __('Logout') }}</button>
                         </form>
                     </div>
                 </div>
-
-                {{-- <!-- SidebarSearch Form -->
-                <div class="form-inline">
-                    <div class="input-group" data-widget="sidebar-search">
-                        <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
-                        <div class="input-group-append">
-                            <button class="btn btn-sidebar">
-                                <i class="fas fa-search fa-fw"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div> --}}
-
                 <!-- Sidebar Menu -->
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
@@ -120,7 +107,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a href="{{ route('users.index') }}" class="nav-link @if (URL::current() == route('users.index')) active @endif">
-                                        <i class="nav-icon fas fa-user"></i>
+                                        <i class="nav-icon fas fa-users"></i>
                                         <p>
                                             {{ __('Users') }}
                                             <span class="right badge badge-danger">{{ __('New') }}</span>
@@ -129,7 +116,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{ route('categories.index') }}" class="nav-link @if (URL::current() == route('categories.index')) active @endif">
-                                        <i class="nav-icon fas fa-tags"></i>
+                                        <i class="nav-icon fas fa-folder"></i>
                                         <p>
                                             {{ __('Categories') }}
                                             <span class="right badge badge-danger">{{ __('New') }}</span>
@@ -138,7 +125,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{ route('products.index') }}" class="nav-link @if (URL::current() == route('products.index')) active @endif">
-                                        <i class="nav-icon fas fa-shopping-bag"></i>
+                                        <i class="nav-icon fas fa-shopping-cart"></i>
                                         <p>
                                             {{ __('Products') }}
                                             <span class="right badge badge-danger">{{ __('New') }}</span>
@@ -147,7 +134,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{ route('roles.index') }}" class="nav-link @if (URL::current() == route('roles.index')) active @endif">
-                                        <i class="nav-icon fas fa-key"></i>
+                                        <i class="nav-icon fas fa-unlock-alt"></i>
                                         <p>
                                             {{ __('Roles') }}
                                             <span class="right badge badge-danger">{{ __('New') }}</span>
@@ -216,9 +203,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                         <!-- small box -->
                                         <div class="small-box bg-info">
                                             <div class="inner">
-                                                {{-- Count The Number Of Current Guests In Last 30m --}}
-                                                <h3>{{ App\Models\Active::users(30)->get()->count() +
-                                                        App\Models\Active::guests(30)->get()->count() }}</h3>
+                                                {{-- Count The Number Of Current Guests In Last 60m --}}
+                                                <h3>{{ App\Models\Active::users(60)->get()->count() +
+                                                        App\Models\Active::guests(60)->get()->count() }}</h3>
                                 
                                                 <p>{{ __('Live Guests') }}</p>
                                             </div>
@@ -234,10 +221,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                         <!-- small box -->
                                         <div class="small-box bg-success">
                                             <div class="inner">
-                                                {{-- Count The Number Of Current Auth Users In Last 30m --}}
-                                                <h3>{{ App\Models\Active::users(30)->get()->count() }}</h3>
+                                                {{-- Count The Number Of Current Auth Users In Last 60m --}}
+                                                <h3>{{ App\Models\Active::users(60)->get()->count() }}</h3>
                                 
-                                                <p>{{ __('Current User Registrations') }}</p>
+                                                <p>{{ __('Current Registered Users') }}</p>
                                             </div>
                                             <div class="icon">
                                                 <i class="fas fa-user-plus"></i>

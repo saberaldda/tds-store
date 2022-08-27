@@ -9,7 +9,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class RatingController extends Controller
+class RatingsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,7 +18,9 @@ class RatingController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.ratings.index', [
+            'title'     => __('Ratings'),
+        ]);
     }
 
     /**
@@ -70,8 +72,8 @@ class RatingController extends Controller
             'user_id' => Auth::id(),
         ]);
 
-        return $rating;
-        return redirect()->route('users.index', $type)
+        // return $rating;
+        return redirect()->route('ratings.index', $type)
         ->with('success', __('Rating Complete.'));
     }
 

@@ -63,17 +63,6 @@
     @enderror
 </div>
 
-{{-- <div class="form-group">
-    <label for="custom_field1">{{ __('Country') }}:</label>
-    <input id="custom_field1" name="custom_field1" type="text" list="custom_field1_datalist" class="form-control" placeholder="{{ __('Country') }}">
-    <datalist id="custom_field1_datalist">
-        @foreach ($countries as $country)
-            <option @if($country->id == old('country', $user->country_id)) selected @endif>{{ $country->name }}</option>
-        @endforeach
-    </datalist>
-    <span id="error" class="text-danger"></span>
-</div> --}}
-
 <div class="form-group">
     <label for="status">{{ __('User Type') }}</label>
     <div>

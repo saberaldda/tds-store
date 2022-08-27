@@ -9,7 +9,10 @@ class Rating extends Model
 {
     use HasFactory;
 
+    protected $table = 'ratings';
+
     protected $fillable = ['rateable_type','rateable_id','rating', 'user_id'];
+    
     protected $timestamp = false;
 
     public function rateable()

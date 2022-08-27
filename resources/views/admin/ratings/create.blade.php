@@ -5,7 +5,7 @@
 @section('breadcrumb')
 <ol class="breadcrumb float-sm-right">
     <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">{{ __('Home') }}</a></li>
-    <li class="breadcrumb-item"><a href="{{ route('users.index') }}">{{ __('Ratings') }}</a></li>
+    <li class="breadcrumb-item"><a href="{{ route('ratings.index') }}">{{ __('Ratings') }}</a></li>
     <li class="breadcrumb-item active">{{ __('Create') }}</li>
 </ol>
 @endsection

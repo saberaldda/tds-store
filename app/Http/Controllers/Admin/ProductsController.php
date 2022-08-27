@@ -33,7 +33,7 @@ class ProductsController extends Controller
         }
 
         $products = $query->withoutGlobalScopes([ActiveStatusScope::class])
-            ->with('category.parent','user')
+            ->with('category.parent','user', 'ratings')
             ->select(['products.*',])
             ->paginate();
 
@@ -165,6 +165,11 @@ class ProductsController extends Controller
         // sheck if image in request
         if ($request->hasFile('image')) {
             $file = $request->file('image'); // UplodedFile Object
+
+            // delete old image
+            if ($product->image_path) {
+                Storage::disk('public')->delete($product->image_path);
+            }
 
             $image_path = $file->storeAs('uploads',
             time() . $file->getClientOriginalName(),

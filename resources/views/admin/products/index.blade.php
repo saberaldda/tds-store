@@ -37,6 +37,7 @@
                 <th>{{ __('Category') }}</th>
                 <th>{{ __('Price') }}</th>
                 <th>{{ __('Qty.') }}</th>
+                <th>{{ __('Rate') }}</th>
                 <th>{{ __('Status') }}</th>
                 <th>{{ __('Ceated At') }}</th>
                 <th style="width:134px">{{ __('Oprations') }}</th>
@@ -53,6 +54,7 @@
                     <td> @if ($product->category->name) {{  $product->category->name  }} @else {{ __('No Category') }} @endif</td> {{-- {{ $product->category->parent->name }} --}}
                     <td> {{ $product->formatted_price }} </td>
                     <td><b> {{ $product->quantity }} </b></td>
+                    <td> {{ round($product->ratings->avg('rating'),1) }} </td>
                     <td> <div class="btn btn-sm @if ($product->status == 'active') btn-success @else btn-warning @endif">{{ __($product->status) }}</div></td>
                     <td> {{ $product->created_at }} </td>
                     <td class="d-flex justify-content-between ">

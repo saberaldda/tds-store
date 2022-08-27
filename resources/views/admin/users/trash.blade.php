@@ -64,9 +64,9 @@
                     <td> {{ $user->name }} </td>
                     <td> {{ $user->type }} </td>
                     <td> {{ $user->email }} </td>
-                    <td class="text-bold btn btn-sm btn-danger" onclick="location.href='{{ route('roles.index') }}';"> 
+                    <td class="text-bold" onclick="location.href='{{ route('roles.index') }}';"> 
                         @foreach ($user->roles as $role) 
-                        {{ "$role->name, " }} 
+                        {{ "($role->name) " }} 
                         @endforeach 
                     </td>
                     <td> {{ $user->country->name }} </td>

@@ -47,7 +47,7 @@ class Category extends Model
         'name'        => 'required|string|max:255|min:3',
         'parent_id'   => 'nullable|int|exists:categories,id',
         'description' => 'nullable|min:5',
-        'image'       => 'image|max:512000|dimensions:min_width=300,min_height=300',
+        'image'       => 'nullable|image',
         ];
     }
     

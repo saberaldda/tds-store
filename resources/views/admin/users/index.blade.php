@@ -35,6 +35,7 @@
                 <th>{{ __('User Type') }}</th>
                 <th>{{ __('Email') }}</th>
                 <th>{{ __('Roles') }}</th>
+                <th>{{ __('Rate') }}</th>
                 <th>{{ __('Country') }}</th>
                 <th>{{ __('Ceated At') }}</th>
                 <th style="width:134px">{{ __('Oprations') }}</th>
@@ -48,11 +49,12 @@
                     <td> {{ $user->name }} </td>
                     <td> {{ $user->type }} </td>
                     <td> {{ $user->email }} </td>
-                    <td class="text-bold btn btn-sm btn-danger" onclick="location.href='{{ route('roles.index') }}';"> 
+                    <td class="text-bold" onclick="location.href='{{ route('roles.index') }}';"> 
                         @foreach ($user->roles as $role) 
-                        {{ "$role->name, " }} 
+                        {{ "($role->name) " }} 
                         @endforeach 
                     </td>
+                    <td> {{ round($user->profile->ratings->avg('rating'),1) }} </td>
                     <td> {{ $user->country->name }} </td>
                     <td> {{ $user->created_at }} </td>
                     <td class="d-flex justify-content-between ">
