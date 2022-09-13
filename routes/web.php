@@ -1,13 +1,15 @@
 <?php
 
-use App\Http\Controllers\Admin\CategoriesController;
-use App\Http\Controllers\Admin\CountriesController;
-use App\Http\Controllers\Admin\ProductsController;
-use App\Http\Controllers\Admin\RatingsController;
-use App\Http\Controllers\Admin\RolesController;
-use App\Http\Controllers\Admin\UsersController;
-use App\Http\Controllers\Home\ProductController;
+use App\Http\Controllers\Front\CartController;
+use App\Http\Controllers\Front\CheckoutController;
+use App\Http\Controllers\Front\CurrencyConverterController;
+use App\Http\Controllers\Front\HomeController;
+use App\Http\Controllers\Front\PaymentsController;
+use App\Http\Controllers\Front\ProductController;
+use App\Http\Controllers\Front\SubsMailsController;
+use App\Http\Controllers\Front\WishlistController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,81 +23,55 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Home
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::post('home/rate', [HomeController::class, 'rate'])->name('home.rate')->middleware('auth');
 
-require __DIR__.'/auth.php';
+//Front Products Details
+Route::get('products', [ProductController::class, 'index'])->name('products');
+Route::get('product/{slug}', [ProductController::class, 'show'])->name('product.details');
+Route::post('subsmail/store', [SubsMailsController::class, 'store'])->name('subsmail.store');
 
-// Admin
-Route::prefix('admin')
-    ->middleware(['auth', 'auth.type:super-admin,admin'])
-    ->group(function () {
+// Wishlist
+Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist')->middleware('auth');
+Route::post('/wishlist', [WishlistController::class, 'store'])->middleware('auth');
+Route::post('/wishlist/delete', [WishlistController::class, 'delete'])->name('wishlist.delete')->middleware('auth');
 
-        // Dashboard
-        Route::get('/dashboard', function () {
-            return view('layouts.admin');
-        })->name('dashboard');
+// Cart
+Route::get('/cart', [CartController::class, 'index'])->name('cart');
+Route::post('/cart', [CartController::class, 'store']);
+Route::post('/cart/clear', [CartController::class, 'clear'])->name('cart.clear');
+Route::post('cart/quantity', [CartController::class, 'quantity'])->name('cart.quantity');
 
-        // categories
-        Route::controller(CategoriesController::class)
-            ->group(function () {
-                Route::get('/categories/trash', 'trash')->name('categories.trash');
-                Route::put('/categories/trash/{category?}', 'restore')->name('categories.restore');
-                Route::delete('/categories/trash/{category?}', 'forceDelete')->name('categories.force-delete');
-                Route::resource('/categories', CategoriesController::class);
-            });
+// Checkout
+Route::get('/checkout', [CheckoutController::class, 'create'])->name('checkout');
+Route::post('/checkout', [CheckoutController::class, 'store']);
 
-            // prodcuts
-        Route::controller(ProductsController::class)
-            ->group(function () {
-                Route::get('/products/trash', 'trash')->name('products.trash');
-                Route::put('/products/trash/{product?}', 'restore')->name('products.restore');
-                Route::delete('/products/trash/{product?}', 'forceDelete')->name('products.force-delete');
-                Route::resource('/products', ProductsController::class);
-            });
+// Payment Method (PayPal)
+Route::get('orders/{order}/payments/create', [PaymentsController::class, 'create'])->name('orders.payments.create');
+Route::get('orders/{order}/payments/callback', [PaymentsController::class, 'callback'])->name('orders.payments.return');
+Route::get('orders/{order}/payments/cancel', [PaymentsController::class, 'cancel'])->name('orders.payments.cancel');
 
-            // Roles
-        Route::controller(RolesController::class)
-            ->group(function () {
-                Route::get('/roles/{role}/assign', 'assign')->name('roles.assign-user');
-                Route::put('/roles/assign/{role?}', 'save')->name('roles.save-assign');
-                Route::resource('/roles', RolesController::class);
-            });
+// Currency Converter
+Route::post('currency', [CurrencyConverterController::class, 'store'])->name('currency.store');
 
-            // User Managment
-        Route::controller(UsersController::class)
-            ->group(function () {
-                Route::get('/users/trash', 'trash')->name('users.trash');
-                Route::put('/users/trash/{product?}', 'restore')->name('users.restore');
-                Route::delete('/users/trash/{product?}', 'forceDelete')->name('users.force-delete');
-                Route::resource('/users', UsersController::class);
-            });
-
-            // Countries
-        Route::controller(CountriesController::class)
-            ->group(function () {
-                Route::resource('/countries', CountriesController::class)->except(['show','edit','update']);
-            });
-            
-            // Ratings
-        Route::controller(RatingsController::class)
-        ->group(function () {
-            Route::get('ratings/','index')->name('ratings.index');
-            Route::get('ratings/{type}/create','create')->where('type', 'product|profile')->name('ratings.create');
-            Route::post('ratings/{type}','store')->where('type', 'product|profile')->name('ratings.store');
-        });
-
-    });
-
-    // Profile
-Route::controller(ProfileController::class)
-->middleware('auth')
+// Profile
+Route::controller(ProfileController::class)->middleware('auth')
 ->group(function () {
     Route::get('profile/{user}', 'show')->name('profile.show');
     Route::post('profile/update/{user}', 'update')->name('profile.update');
     Route::post('profile/changepass/{user}', 'changePass')->name('profile.change-pass');
 });
 
-Route::get('products', [ProductController::class, 'index'])->name('products');
-Route::get('products/{slug}', [ProductController::class, 'show'])->name('product.details');
+Route::get('test', [TestController::class, 'index']);
+
+// Regular Expreion
+// src="([^"]+)"
+// src="{{ asset('assets/front/$1') }}"
+
+
+require __DIR__.'/auth.php';
+
+require __DIR__.'/dashboard.php';
+
+require __DIR__.'/front.php';

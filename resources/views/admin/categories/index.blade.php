@@ -49,7 +49,10 @@
                     <td> {{ $category->description }}</td>
                     <td> {{ @$category->parent->name }}</td> {{-- @ for escape the empty result --}}
                     <td> {{ $category->products_count }}</td> {{-- products as count --}}
-                    <td> <div class="btn btn-sm  @if ($category->status == 'active') btn-success @else btn-warning @endif">{{ __($category->status) }}</div></td>
+                    <td> <div class="btn btn-sm  @if ($category->status == 'active') btn-success @else btn-warning @endif" onclick="document.getElementById('cahngestatus{{ $category->id }}').submit()">{{ __($category->status) }}</div></td>
+                    <form action="{{ route('categories.change-status', $category->id) }}" method="post" id="cahngestatus{{ $category->id }}" style="display: none">
+                        @csrf
+                    </form>
                     <td> {{ $category->created_at }}</td>
                     <td class="d-flex justify-content-between ">
                         @can('view', $category)

@@ -5,7 +5,7 @@
         <span class="badge badge-warning navbar-badge unread">{{ $unread }}</span>
     </a>
     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-        <span class="dropdown-header"><span id="unread" class="unread">{{ $unread }}</span> Notifications</span>
+        <span class="dropdown-header"><span id="unread" class="unread">{{ $unread }}</span> {{ __('Notifications') }}</span>
         <div class="dropdown-divider"></div>
 
         <div id="notifications">
@@ -20,6 +20,6 @@
             @endforeach
         </div>
         
-        <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
+        <a href="{{ route('notifications') }}" class="dropdown-item dropdown-footer">{{ __('See All Notifications') }}</a>
     </div>
 </li>

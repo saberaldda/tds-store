@@ -7,15 +7,17 @@ use Illuminate\View\Component;
 class StoreFrontLayout extends Component
 {
     public $title;
+    public $categories;
 
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($title = '')
+    public function __construct($title = '', $categories=[])
     {
         $this->title = $title;
+        $this->categories = $categories;
     }
 
     /**
@@ -25,6 +27,6 @@ class StoreFrontLayout extends Component
      */
     public function render()
     {
-        return view('layouts.store-front');
+        return view('layouts.store-front'); 
     }
 }

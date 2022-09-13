@@ -1,19 +1,29 @@
 <div class="ps-shoe mb-30">
-    <div class="ps-shoe__thumbnail"><a class="ps-shoe__favorite" href="#"><i class="ps-icon-heart"></i></a><img src="{{ $product->image_url }}" alt=""><a class="ps-shoe__overlay" href="{{ route('product.details', $product->slug) }}"></a>
+    <div class="ps-shoe__thumbnail"><a class="ps-shoe__favorite" href="#" onclick="event.preventDefault(); document.getElementById('wish{{ $product->id }}').submit()"><i class="ps-icon-heart"></i></a width="500" height="600"><img src="{{ $product->image_url }}" alt=""><a class="ps-shoe__overlay" width="760" height="760" href="{{ route('product.details', $product->slug) }}"></a>
     </div>
+    <form action="{{ route('wishlist') }}" method="post" id="wish{{ $product->id }}">
+      @csrf
+      <input type="hidden" name="product_id" value="{{ $product->id }}">
+    </form>
     <div class="ps-shoe__content">
-      <div class="ps-shoe__variants">
-        {{-- <div class="ps-shoe__variant normal"><img src="{{ asset('assets/front/images/shoe/2.jpg') }}" alt=""><img src="{{ asset('assets/front/images/shoe/3.jpg') }}" alt=""><img src="{{ asset('assets/front/images/shoe/4.jpg') }}" alt=""><img src="{{ asset('assets/front/images/shoe/5.jpg') }}" alt=""></div> --}}
-        <select class="ps-rating ps-shoe__rating">
-          <option value="1">1</option>
-          <option value="1">2</option>
-          <option value="1">3</option>
-          <option value="1">4</option>
-          <option value="2">5</option>
-        </select>
-      </div>
+      <form action="{{ route('home.rate', 'product') }}" method="post">
+        @csrf
+        <input type="hidden" name="id" value="{{ $product->id }}">
+        <div class="ps-shoe__variants">
+          <div class="ps-shoe__variant normal"><img src="{{ $product->image_url }}" alt="">
+                                              <img src="{{ $product->image_url }}" alt=""></div>
+          <select name="rating" class="ps-rating ps-shoe__rating" onchange="this.form.submit()">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select>
+        </div>
+      </form>
       <div class="ps-shoe__detail"><a class="ps-shoe__name" href="{{ route('product.details', $product->slug) }}">{{ $product->name }}</a>
-        <p class="ps-shoe__categories"> {{ $product->category->name }} </p><span class="ps-shoe__price">£ {{$product->price}} </span>
+        <p class="ps-shoe__categories"> {{ $product->category->name }}</p>
+        <span class="ps-shoe__price" style="margin-top: 20px; color: #2AC37D"><b>{{ App\Helpers\Currency::format($product->price) }}</b> </span>
       </div>
     </div>
-  </div>
+  </div> 

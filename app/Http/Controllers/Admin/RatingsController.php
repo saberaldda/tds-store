@@ -72,8 +72,7 @@ class RatingsController extends Controller
             'user_id' => Auth::id(),
         ]);
 
-        // return $rating;
-        return redirect()->route('ratings.index', $type)
+        return redirect()->route('ratings.index')
         ->with('success', __('Rating Complete.'));
     }
 

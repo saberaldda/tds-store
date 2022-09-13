@@ -2,11 +2,14 @@
 
 namespace App\Models;
 
+use App\Notifications\LowQuantityNotification;
+use App\Observers\ProductsObserver;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Str;
 use NumberFormatter;
 
@@ -37,20 +40,27 @@ class Product extends Model
     protected static function booted()
     {
         // for solve slug dublecate (slug slug1 slug2)
-        static::creating(function(Product $product) {
-            $slug = Str::slug($product->name);
+        static::observe(ProductsObserver::class);
 
-            $count = Product::where('slug', 'LIKE', "{$slug}%")->count();
-            if ($count) {
-                $slug.= '-' . ($count + 1);
+        // Notification For Low Quantity
+        self::saved(function(Product $product) {
+            if ($product->quantity <= 5) {
+                $users = User::where('type', 'super-admin')->orWhere('id', $product->user->id)->get();
+                Notification::send($users, new LowQuantityNotification($product));
             }
-            $product->slug = $slug;
         });
     }
 
     public function scopeActive(Builder $builder)
     {
         $builder->where('status', '=', 'active');
+    }
+
+    public function scopeActiveCategory(Builder $builder)
+    {
+        $builder->wherehas('category', function($query){
+            $query->where('status', 'active');
+        });
     }
 
     public function scopePrice(Builder $builder,$from,$to)
@@ -65,8 +75,7 @@ class Product extends Model
             'name'        => 'required|max:255',
             'category_id' => 'required|int|exists:categories,id',
             'description' => 'nullable|min:5',
-            'image'       => 'nullable|image',
-                                          //|dimensions:min_width=300,min_height-300',
+            'image'       => 'nullable|image|dimensions:width=760,height-760',
             'price'       => 'required|numeric|min:0',
             'sale_price'  => 'nullable|numeric|min:0',
             'quantity'    => 'nullable|int|min:0',

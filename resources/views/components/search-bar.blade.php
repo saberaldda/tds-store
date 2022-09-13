@@ -17,7 +17,7 @@
                 @endif
                 
                 @if (@$options)
-                    <select name="status" class="form-control">
+                    <select name="status" class="form-control" onchange="this.form.submit()">
                         <option value="" selected>{{ __('All') }}</option>
                         @foreach($options as $option)
                         <option value="{{ $option }}" @selected(request('status') == $option)>{{ ucfirst(__($option)) }}</option>

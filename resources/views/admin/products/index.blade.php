@@ -26,6 +26,7 @@
 
 @section('content')
 
+    {{ $products->withQueryString()->links() }}
     <table class="table table-bordered table-sm">
         <thead  style="position: sticky;top: 0">
             <tr>
@@ -55,7 +56,10 @@
                     <td> {{ $product->formatted_price }} </td>
                     <td><b> {{ $product->quantity }} </b></td>
                     <td> {{ round($product->ratings->avg('rating'),1) }} </td>
-                    <td> <div class="btn btn-sm @if ($product->status == 'active') btn-success @else btn-warning @endif">{{ __($product->status) }}</div></td>
+                    <td> <div class="btn btn-sm @if ($product->status == 'active') btn-success @else btn-warning @endif" onclick="document.getElementById('cahngestatus{{ $product->id }}').submit()">{{ __($product->status) }}</div></td>
+                    <form action="{{ route('products.change-status', $product->id) }}" method="post" id="cahngestatus{{ $product->id }}" style="display: none">
+                        @csrf
+                    </form>
                     <td> {{ $product->created_at }} </td>
                     <td class="d-flex justify-content-between ">
                         @can('view', $product)

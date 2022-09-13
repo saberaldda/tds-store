@@ -51,8 +51,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <!-- language switcher -->
                 <x-lang-switcher/>
 
-                {{-- <!-- Notifications Dropdown Menu -->
-                <x-notifications-menu /> --}}
+                <!-- Notifications Dropdown Menu -->
+                <x-notifications-menu />
 
                 <li class="nav-item">
                     <a class="nav-link" data-widget="fullscreen" href="#" role="button">
@@ -93,76 +93,78 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </div>
                 <!-- Sidebar Menu -->
                 <nav class="mt-2">
-                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                        <!-- Add icons to the links using the .nav-icon class
-                            with font-awesome or any other icon font library -->
-                        <li class="nav-item menu-open">
-                            <a href="{{ route('dashboard') }}" class="nav-link @if (URL::current() == route('dashboard')) active @endif">
-                                <i class="nav-icon fas fa-tachometer-alt"></i>
-                                <p>
-                                    {{ __('Dashboard') }}
-                                    <i class="right fas fa-angle-left"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="{{ route('users.index') }}" class="nav-link @if (URL::current() == route('users.index')) active @endif">
-                                        <i class="nav-icon fas fa-users"></i>
-                                        <p>
-                                            {{ __('Users') }}
-                                            <span class="right badge badge-danger">{{ __('New') }}</span>
-                                        </p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{ route('categories.index') }}" class="nav-link @if (URL::current() == route('categories.index')) active @endif">
-                                        <i class="nav-icon fas fa-folder"></i>
-                                        <p>
-                                            {{ __('Categories') }}
-                                            <span class="right badge badge-danger">{{ __('New') }}</span>
-                                        </p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{ route('products.index') }}" class="nav-link @if (URL::current() == route('products.index')) active @endif">
-                                        <i class="nav-icon fas fa-shopping-cart"></i>
-                                        <p>
-                                            {{ __('Products') }}
-                                            <span class="right badge badge-danger">{{ __('New') }}</span>
-                                        </p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{ route('roles.index') }}" class="nav-link @if (URL::current() == route('roles.index')) active @endif">
-                                        <i class="nav-icon fas fa-unlock-alt"></i>
-                                        <p>
-                                            {{ __('Roles') }}
-                                            <span class="right badge badge-danger">{{ __('New') }}</span>
-                                        </p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{ route('countries.index') }}" class="nav-link @if (URL::current() == route('countries.index')) active @endif">
-                                        <i class="nav-icon fas fa-city"></i>
-                                        <p>
-                                            {{ __('Countries') }}
-                                            <span class="right badge badge-danger">{{ __('New') }}</span>
-                                        </p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{ route('ratings.index') }}" class="nav-link @if (URL::current() == route('ratings.index')) active @endif">
-                                        <i class="fas fa-star-half-alt"></i>
-                                        <p>
-                                            {{ __('Ratings') }}
-                                            <span class="right badge badge-danger">{{ __('New') }}</span>
-                                        </p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        
-                    </ul>
+                    @if ('user' !== Auth::user()->type)
+                        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                            <!-- Add icons to the links using the .nav-icon class
+                                with font-awesome or any other icon font library -->
+                            <li class="nav-item menu-open">
+                                <a href="{{ route('dashboard') }}" class="nav-link @if (URL::current() == route('dashboard')) active @endif">
+                                    <i class="nav-icon fas fa-tachometer-alt"></i>
+                                    <p>
+                                        {{ __('Dashboard') }}
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="{{ route('users.index') }}" class="nav-link @if (URL::current() == route('users.index')) active @endif">
+                                            <i class="nav-icon fas fa-users"></i>
+                                            <p>
+                                                {{ __('Users') }}
+                                                <span class="right badge badge-danger">{{ __('New') }}</span>
+                                            </p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route('categories.index') }}" class="nav-link @if (URL::current() == route('categories.index')) active @endif">
+                                            <i class="nav-icon fas fa-folder"></i>
+                                            <p>
+                                                {{ __('Categories') }}
+                                                <span class="right badge badge-danger">{{ __('New') }}</span>
+                                            </p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route('products.index') }}" class="nav-link @if (URL::current() == route('products.index')) active @endif">
+                                            <i class="nav-icon fas fa-shopping-cart"></i>
+                                            <p>
+                                                {{ __('Products') }}
+                                                <span class="right badge badge-danger">{{ __('New') }}</span>
+                                            </p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route('roles.index') }}" class="nav-link @if (URL::current() == route('roles.index')) active @endif">
+                                            <i class="nav-icon fas fa-unlock-alt"></i>
+                                            <p>
+                                                {{ __('Roles') }}
+                                                <span class="right badge badge-danger">{{ __('New') }}</span>
+                                            </p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route('countries.index') }}" class="nav-link @if (URL::current() == route('countries.index')) active @endif">
+                                            <i class="nav-icon fas fa-city"></i>
+                                            <p>
+                                                {{ __('Countries') }}
+                                                <span class="right badge badge-danger">{{ __('New') }}</span>
+                                            </p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route('ratings.index') }}" class="nav-link @if (URL::current() == route('ratings.index')) active @endif">
+                                            <i class="fas fa-star-half-alt"></i>
+                                            <p>
+                                                {{ __('Ratings') }}
+                                                <span class="right badge badge-danger">{{ __('New') }}</span>
+                                            </p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            
+                        </ul>
+                    @endif
                 </nav>
                 <!-- /.sidebar-menu -->
             </div>
@@ -238,12 +240,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                         <!-- small box -->
                                         <div class="small-box bg-warning">
                                             <div class="inner">
-                                                <h3>{{ App\Models\Product::get()->count() }}</h3>
+                                                <h3>{{ App\Models\Product::active()->get()->count() }}</h3>
                                 
                                                 <p>{{ __('Active Products Number') }}</p>
                                             </div>
                                             <div class="icon">
-                                                <i class="fas fa-shopping-bag"></i>
+                                                <i class="fas fa-tags"></i>
                                             </div>
                                             @isset($link)
                                                 <a href="{{ $link }}" class="small-box-footer">{{ __('More info') }} <i class="fas fa-arrow-circle-right"></i></a>
@@ -254,12 +256,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                         <!-- small box -->
                                         <div class="small-box bg-danger">
                                             <div class="inner">
-                                                <h3>{{ App\Models\Category::get()->count() }}</h3>
+                                                <h3>{{ App\Models\Order::where('created_at', '>=', \Carbon\Carbon::now()->subDay())->get()->count() }}</h3>
                                 
-                                                <p>{{ __('Active Categories Number') }}</p>
+                                                <p>{{ __('New Orders Last 24 Hours') }}</p>
                                             </div>
                                             <div class="icon">
-                                                <i class="fas fa-tags"></i>
+                                                <i class="fas fa-shopping-bag"></i>
                                             </div>
                                             @isset($link)
                                                 <a href="{{ $link }}" class="small-box-footer">{{ __('More info') }} <i class="fas fa-arrow-circle-right"></i></a>

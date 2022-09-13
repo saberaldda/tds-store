@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Observers\CategoriesObserver;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -30,15 +32,12 @@ class Category extends Model
     protected static function booted()
     {
         // for solve slug dublecate (slug slug1 slug2)
-        static::creating(function(Category $category) {
-            $slug = Str::slug($category->name);
+        static::observe(CategoriesObserver::class);
+    }
 
-            $count = Category::where('slug', 'LIKE', "{$slug}%")->count();
-            if ($count) {
-                $slug.= '-' . ($count + 1);
-            }
-            $category->slug = $slug;
-        });
+    public function scopeActive(Builder $builder)
+    {
+        $builder->where('status', '=', 'active');
     }
 
     protected static function validateRules()

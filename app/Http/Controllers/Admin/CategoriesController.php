@@ -107,12 +107,14 @@ class CategoriesController extends Controller
     {
         $this->authorize('view', $category);
 
-        return $category->Products()
-                        // ->with('category:id,name,status')
-                        // ->where('price', '>', 150)
-                        // ->has('products)
-                        ->orderBy('price', 'ASC')
-                        ->get();
+        // return $category->Products()
+        //                 // ->with('category:id,name,status')
+        //                 // ->where('price', '>', 150)
+        //                 // ->has('products)
+        //                 ->orderBy('price', 'ASC')
+        //                 ->get();
+
+        return redirect()->route('products',['category' => $category->id]);
     }
 
     /**
@@ -197,6 +199,22 @@ class CategoriesController extends Controller
 
         return redirect()->route('categories.index')
             ->with('success', __('app.categories_delete', ['name' => $category->name]));
+    }
+
+    public function changeStatus(Category $category)
+    {
+        $this->authorize('update', $category);
+
+        if ($category->status == 'active') {
+            $status = 'archived';
+        }else if ($category->status == 'archived') {
+            $status = 'active';
+        }
+        $category->update(
+            ['status' => $status]
+        );
+
+        return redirect()->back();
     }
 
     public function trash()

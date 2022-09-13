@@ -109,4 +109,9 @@ class User extends Authenticatable
         return $this->hasOne(Profile::class, 'user_id', 'id')
                     ->withDefault();
     }
+
+    public function receivesBroadcastNotificationsOn() // change the name of broadcast channel
+    {
+        return 'Notifications.' . $this->id;
+    }
 }

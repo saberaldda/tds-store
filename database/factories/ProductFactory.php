@@ -28,7 +28,7 @@ class ProductFactory extends Factory
             'user_id'       => rand(1,2,3),
             'category_id'   => $category? $category->id : null,
             'description'   => $this->faker->words(5 ,true),
-            'image_path'    => $this->faker->imageUrl(),
+            'image_path'    => $this->faker->imageUrl(760,760),
             'status'        => $status[rand(0, 1)],
             'price'         => $this->faker->randomFloat(2, 50, 1000),
             'quantity'      => $this->faker->randomFloat(0, 0, 30),

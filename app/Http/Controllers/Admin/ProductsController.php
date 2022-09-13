@@ -38,7 +38,7 @@ class ProductsController extends Controller
             ->paginate();
 
         // for select menu (search)
-        $options = ['ative', 'draft'];
+        $options = ['active', 'draft'];
 
         return view('admin.products.index', [
             'products' => $products,
@@ -117,7 +117,9 @@ class ProductsController extends Controller
         // $product = Product::withoutGlobalScope('')->findOrFail($id);
 
         // SELECT * FROM ratings WHERE rateable_id = ? AND rateable_type = 'App\Models\Product';
-        return $product->ratings;
+        // return $product->ratings;
+
+        return redirect()->route('product.details', $product->slug);
         
         return view('admin.products.show', [
             'title'     => 'Show Product',
@@ -205,6 +207,22 @@ class ProductsController extends Controller
             ->with('success', __('app.products_delete', ['name' => $product->name]));
     }
 
+    public function changeStatus(Product $product)
+    {
+        $this->authorize('update', $product);
+
+        if ($product->status == 'active') {
+            $status = 'draft';
+        }else if ($product->status == 'draft') {
+            $status = 'active';
+        }
+        $product->update(
+            ['status' => $status]
+        );
+
+        return redirect()->back();
+    }
+
     public function trash()
     {
         $this->authorize('restore', Product::class);
@@ -221,7 +239,7 @@ class ProductsController extends Controller
         }
 
         // for select menu (search)
-        $options = ['ative', 'draft'];
+        $options = ['active', 'draft'];
 
         $products = $query->withoutGlobalScope('active')->onlyTrashed()->paginate();
         return view('admin.products.trash', [

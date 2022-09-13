@@ -73,6 +73,15 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Application Currency
+    |--------------------------------------------------------------------------
+    |
+    */
+
+    'currency' => 'USD',
+
+    /*
+    |--------------------------------------------------------------------------
     | Application Locale Configuration
     |--------------------------------------------------------------------------
     |
@@ -191,9 +200,10 @@ return [
          */
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
-        // App\Providers\BroadcastServiceProvider::class,
+        App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Providers\CartServiceProvider::class,
 
     ],
 
@@ -209,7 +219,9 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
-        // 'ExampleClass' => App\Example\ExampleClass::class,
+
+        'Currency' => App\Helpers\Currency::class,
+
     ])->toArray(),
 
 ];

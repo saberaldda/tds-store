@@ -20,7 +20,7 @@ class NotificationsMenu extends Component
     public function __construct()
     {
         $user = Auth::user();                     // ->take(5)
-        $this->notifications = $user->notifications()->limit(5)->get(); // by default , order to time
+        $this->notifications = $user->notifications()->whereNull('read_at')->limit(7)->get(); // by default , order to time
         $this->unread = $user->unreadNotifications->count();
     }
 

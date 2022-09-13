@@ -52,9 +52,9 @@
                 </x-button>
 
                 @if (App::currentLocale() == 'ar')
-                    <a href="login?lang=en" class="ml-2 badge"><b>AR</a>
+                    <a href="login?lang=en" class="ml-2 badge"><b>EN</a>
                 @elseif(App::currentLocale() == 'en')
-                    <a href="login?lang=ar" class="ml-2 badge"><b>EN</a>
+                    <a href="login?lang=ar" class="ml-2 badge"><b>AR</a>
                 @endif
             </div>
         </form>
