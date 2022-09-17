@@ -77,7 +77,7 @@ class OrderCreatedNotification extends Notification
             ->from('billing@TDS', 'TDS Billing')
             ->greeting( __('Hello, :name', ['name'=> $notifiable->name ?? '']) )
             ->line( __('New order has been created (Order #:number).', ['number' => $this->order->number]) )
-            ->action('View Order', url('/'))
+            ->action('View Order', route('orders.show', $this->order->id))
             ->line('Thank you for shopping with us!')
             // ->view('mails.invoice', ['order' => $this->order])
             ;
@@ -99,7 +99,7 @@ class OrderCreatedNotification extends Notification
             'title' => __('New Order #:number', ['number' => $this->order->number]),
             'body' => __('New order has been created (Order #:number).', ['number' => $this->order->number]),
             'icon' => '',
-            'url' => url('/'),
+            'url' => route('orders.show', $this->order->id),
             'time' => Carbon::now()->diffForHumans(),
         ]);
     }

@@ -82,8 +82,8 @@ class CategoriesController extends Controller
             $file = $request->file('image'); // UplodedFile Object
 
             $image_path = $file->storeAs('uploads',
-            time() . $file->getClientOriginalName(),
-            'public');
+                time() . '_' . preg_replace('/\s+/', '_', $file->getClientOriginalName()),
+                'public');
             
             // merge image to the request
             $request->merge([
@@ -168,8 +168,8 @@ class CategoriesController extends Controller
             }
 
             $image_path = $file->storeAs('uploads',
-            time() . $file->getClientOriginalName(),
-            'public');
+                time() . '_' . preg_replace('/\s+/', '_', $file->getClientOriginalName()),
+                'public');
             
             // merge image to the request
             $request->merge([

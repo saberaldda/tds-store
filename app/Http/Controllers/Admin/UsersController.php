@@ -77,8 +77,8 @@ class UsersController extends Controller
             $file = $request->file('image'); // UplodedFile Object
 
             $image_path = $file->storeAs('uploads',
-            time() . $file->getClientOriginalName(),
-            'public');
+                time() . '_' . preg_replace('/\s+/', '_', $file->getClientOriginalName()),
+                'public');
             
             // merge image to the request
             $request->merge([
@@ -88,7 +88,8 @@ class UsersController extends Controller
 
         $request->merge([
             'password' => Hash::make($request->post('password')),
-            'password_confirmation' => Hash::make($request->post('password_confirmation'))
+            'password_confirmation' => Hash::make($request->post('password_confirmation')),
+            'country_id' => $request->post('country'),
         ]);
         
         $user = User::create($request->all());
@@ -174,8 +175,8 @@ class UsersController extends Controller
             }
 
             $image_path = $file->storeAs('uploads',
-            time() . $file->getClientOriginalName(),
-            'public');
+                time() . '_' . preg_replace('/\s+/', '_', $file->getClientOriginalName()),
+                'public');
             
             // merge image to the request
             $request->merge([
@@ -186,7 +187,8 @@ class UsersController extends Controller
         if ($request->post('password')) {
             $request->merge([
             'password' => Hash::make($request->post('password')),
-            'password_confirmation' => Hash::make($request->post('password_confirmation'))
+            'password_confirmation' => Hash::make($request->post('password_confirmation')),
+            'country_id' => $request->post('country'),
             ]);
         }else 
             $request->merge(['password' => $user->password,]);

@@ -26,6 +26,8 @@
 
 @section('content')
 
+{{ $categories->withQueryString()->links() }}
+
     <table class="table table-bordered table-sm">
         <thead  style="position: sticky;top: 0">
             <tr>

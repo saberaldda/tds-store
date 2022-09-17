@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\CategoriesController;
 use App\Http\Controllers\Admin\CountriesController;
 use App\Http\Controllers\Admin\NotificationsController;
+use App\Http\Controllers\Admin\OrdersController;
 use App\Http\Controllers\Admin\ProductsController;
 use App\Http\Controllers\Admin\RatingsController;
 use App\Http\Controllers\Admin\RolesController;
@@ -69,7 +70,6 @@ Route::prefix('admin')
             Route::get('ratings/{type}/create','create')->where('type', 'product|profile')->name('ratings.create');
             Route::post('ratings/{type}','store')->where('type', 'product|profile')->name('ratings.store');
         });
-
         
             // Notification
         Route::controller(NotificationsController::class)
@@ -77,6 +77,13 @@ Route::prefix('admin')
             Route::get('notifications', 'index')->name('notifications');
             Route::get('notifications/{id}', 'show')->name('notifications.read');
             Route::delete('notifications/{id}', 'delete')->name('notifications.delete');
+        });
+        
+            // Orders
+        Route::controller(OrdersController::class)
+        ->group(function () {
+            Route::post('/orders/status/{order}', 'changeStatus')->name('orders.change-status');
+            Route::resource('/orders', OrdersController::class)->except('store','update');
         });
 
     });

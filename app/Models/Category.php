@@ -20,7 +20,7 @@ class Category extends Model
 
     // will not return in api request
     protected $hidden = [
-        'created_at', 'updated_at', 'deleted_at',
+        // 'created_at', 'updated_at', 'deleted_at',
     ];
 
     // will return in api request (shuld be geeter)

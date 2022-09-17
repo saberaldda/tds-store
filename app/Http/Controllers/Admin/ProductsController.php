@@ -83,8 +83,8 @@ class ProductsController extends Controller
             $file = $request->file('image'); // UplodedFile Object
 
             $image_path = $file->storeAs('uploads',
-            time() . $file->getClientOriginalName(),
-            'public');
+                time() . '_' . preg_replace('/\s+/', '_', $file->getClientOriginalName()),
+                'public');
             
             // merge image to the request
             $request->merge([
@@ -121,10 +121,10 @@ class ProductsController extends Controller
 
         return redirect()->route('product.details', $product->slug);
         
-        return view('admin.products.show', [
-            'title'     => 'Show Product',
-            'product' => $product,
-        ]);
+        // return view('admin.products.show', [
+        //     'title'     => 'Show Product',
+        //     'product' => $product,
+        // ]);
     }
 
     /**
@@ -174,8 +174,8 @@ class ProductsController extends Controller
             }
 
             $image_path = $file->storeAs('uploads',
-            time() . $file->getClientOriginalName(),
-            'public');
+                time() . '_' . preg_replace('/\s+/', '_', $file->getClientOriginalName()),
+                'public');
             
             // merge image to the request
             $request->merge([

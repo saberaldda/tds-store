@@ -160,6 +160,24 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                             </p>
                                         </a>
                                     </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route('orders.index') }}" class="nav-link @if (URL::current() == route('orders.index')) active @endif">
+                                            <i class="fas fa-truck"></i>
+                                            <p>
+                                                {{ __('Orders') }}
+                                                <span class="right badge badge-danger">{{ __('New') }}</span>
+                                            </p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route('notifications') }}" class="nav-link @if (URL::current() == route('notifications')) active @endif">
+                                            <i class="fas fa-bell"></i>
+                                            <p>
+                                                {{ __('Notifications') }}
+                                                <span class="right badge badge-danger">{{ __('New') }}</span>
+                                            </p>
+                                        </a>
+                                    </li>
                                 </ul>
                             </li>
                             

@@ -45,8 +45,8 @@ class RegisteredUserController extends Controller
             $file = $request->file('image'); // UplodedFile Object
 
             $image_path = $file->storeAs('uploads',
-            time() . $file->getClientOriginalName(),
-            'public');
+                time() . '_' . preg_replace('/\s+/', '_', $file->getClientOriginalName()),
+                'public');
             
             $image_path = 'storage/' . $image_path;
 

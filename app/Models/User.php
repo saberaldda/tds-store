@@ -56,7 +56,7 @@ class User extends Authenticatable
         'name'                  => 'required|max:255',
         'image'                 => 'nullable|image',
         'email'                 => 'required|email|unique:users,email',
-        'type'                  => 'required',
+        'type'                  => 'required|in:super-admin,admin,user',
         'password'              => 'required|min:8',
         'password_confirmation' => 'required|same:password',
         'country'               => 'nullable',

@@ -78,7 +78,7 @@ class Product extends Model
             'image'       => 'nullable|image|dimensions:width=760,height-760',
             'price'       => 'required|numeric|min:0',
             'sale_price'  => 'nullable|numeric|min:0',
-            'quantity'    => 'nullable|int|min:0',
+            'quantity'    => 'required|int|min:0',
             'sku'         => 'nullable',
                                     // |unique:products,sku
             'width'       => 'nullable|numeric|min:0',

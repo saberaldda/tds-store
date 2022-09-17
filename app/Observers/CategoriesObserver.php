@@ -22,7 +22,7 @@ class CategoriesObserver
     {
             $slug = Str::slug($category->name);
 
-            $count = Category::where('slug', 'LIKE', "{$slug}%")->count();
+            $count = Category::withTrashed()->where('slug', 'LIKE', "{$slug}%")->count();
             if ($count) {
                 $slug.= '-' . ($count + 1);
             }
@@ -44,7 +44,7 @@ class CategoriesObserver
     {
         $slug = Str::slug($category->name);
 
-            $count = Category::where('slug', 'LIKE', "{$slug}%")->count();
+            $count = Category::withTrashed()->where('slug', 'LIKE', "{$slug}%")->count();
             if ($count) {
                 $slug.= '-' . ($count + 1);
             }

@@ -22,7 +22,7 @@ class ProductsObserver
     {
         $slug = Str::slug($product->name);
 
-            $count = Product::where('slug', 'LIKE', "{$slug}%")->count();
+            $count = Product::withTrashed()->where('slug', 'LIKE', "{$slug}%")->count();
             if ($count) {
                 $slug.= '-' . ($count + 1);
             }
@@ -49,7 +49,7 @@ class ProductsObserver
     {
         $slug = Str::slug($product->name);
 
-            $count = Product::where('slug', 'LIKE', "{$slug}%")->count();
+            $count = Product::withTrashed()->where('slug', 'LIKE', "{$slug}%")->count();
             if ($count) {
                 $slug.= '-' . ($count + 1);
             }

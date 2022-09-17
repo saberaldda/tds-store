@@ -20,6 +20,10 @@ class Cart extends Model
         'id', 'cookie_id', 'product_id', 'user_id', 'quantity',
     ];
 
+    // protected $hidden = [
+    //     'cookie_id',
+    // ];
+
     // auto egarloding in all cases
     protected $with = [
         'product',
