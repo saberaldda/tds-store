@@ -50,11 +50,21 @@ class ProfileController extends Controller
 
         $user->update($request->all());
 
-        Profile::find($user->id)->update([
-            'birthdate' => $request->post('birthdate'),
-            'address'   => $request->post('address'),
-            'gender'    => $request->post('gender'),
-        ]);
+        $profile = Profile::where('user_id', $user->id)->first();
+        if (!$profile) {
+            Profile::where('user_id', $user->id)->create([
+                'user_id'   => $user->id,
+                'birthdate' => $request->post('birthdate'),
+                'address'   => $request->post('address'),
+                'gender'    => $request->post('gender'),
+            ]);
+        }else{
+            Profile::where('user_id', $user->id)->update([
+                'birthdate' => $request->post('birthdate'),
+                'address'   => $request->post('address'),
+                'gender'    => $request->post('gender'),
+            ]);
+        }
 
         return redirect()->route('profile.show', Auth::id());
     }

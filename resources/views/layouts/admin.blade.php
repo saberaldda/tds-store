@@ -22,7 +22,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link rel="stylesheet" href="{{ asset('assets/admin/css/adminlte.min.css') }}">
     @endif
     <!-- Table zepra coloring -->
-    <style> tr:nth-child(odd) {background: #CCC} </style>
+    <style> tr:nth-child(odd) {background: #dddddd} </style>
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -51,17 +51,48 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <!-- language switcher -->
                 <x-lang-switcher/>
 
+                <li class="nav-item dropdown">
+                    <a class="nav-link" data-toggle="dropdown" href="#">
+                        <i class="fas fa-dollar-sign"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <form action="{{ route('currency.store') }}" method="post" id="currencyUSD">
+                            @csrf
+                            <a class="dropdown-item" href="" onclick="event.preventDefault(); document.getElementById('currencyUSD').submit();">
+                                <input type="hidden" name="currency_code" value="USD" @selected('USD' == session('currency_code'))>
+                                $ {{ __('USD') }}
+                            </a>
+                        </form>
+                        <form action="{{ route('currency.store') }}" method="post" id="currencyILS">
+                            @csrf
+                            <a class="dropdown-item" href="" onclick="event.preventDefault(); document.getElementById('currencyILS').submit();">
+                                <input type="hidden" name="currency_code" value="ILS" @selected('ILS' == session('currency_code'))>
+                                ₪ {{ __('ILS') }}
+                            </a>
+                        </form>
+                        <form action="{{ route('currency.store') }}" method="post" id="currencyJOD">
+                            @csrf
+                            <a class="dropdown-item" href="" onclick="event.preventDefault(); document.getElementById('currencyJOD').submit();">
+                                <input type="hidden" name="currency_code" value="JOD" @selected('JOD' == session('currency_code'))>
+                                د.أ {{ __('JOD') }}
+                            </a>
+                        </form>
+                        <form action="{{ route('currency.store') }}" method="post" id="currencySAR">
+                            @csrf
+                            <a class="dropdown-item" href="" onclick="event.preventDefault(); document.getElementById('currencySAR').submit();">
+                                <input type="hidden" name="currency_code" value="SAR" @selected('SAR' == session('currency_code'))>
+                                ر.س {{ __('SAR') }}
+                            </a>
+                        </form>
+                    </div>
+                </li>
+
                 <!-- Notifications Dropdown Menu -->
                 <x-notifications-menu />
 
                 <li class="nav-item">
                     <a class="nav-link" data-widget="fullscreen" href="#" role="button">
                         <i class="fas fa-expand-arrows-alt"></i>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
-                        <i class="fas fa-th-large"></i>
                     </a>
                 </li>
             </ul>
@@ -111,7 +142,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                             <i class="nav-icon fas fa-users"></i>
                                             <p>
                                                 {{ __('Users') }}
-                                                <span class="right badge badge-danger">{{ __('New') }}</span>
                                             </p>
                                         </a>
                                     </li>
@@ -120,7 +150,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                             <i class="nav-icon fas fa-folder"></i>
                                             <p>
                                                 {{ __('Categories') }}
-                                                <span class="right badge badge-danger">{{ __('New') }}</span>
                                             </p>
                                         </a>
                                     </li>
@@ -129,7 +158,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                             <i class="nav-icon fas fa-shopping-cart"></i>
                                             <p>
                                                 {{ __('Products') }}
-                                                <span class="right badge badge-danger">{{ __('New') }}</span>
                                             </p>
                                         </a>
                                     </li>
@@ -138,7 +166,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                             <i class="nav-icon fas fa-unlock-alt"></i>
                                             <p>
                                                 {{ __('Roles') }}
-                                                <span class="right badge badge-danger">{{ __('New') }}</span>
                                             </p>
                                         </a>
                                     </li>
@@ -147,7 +174,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                             <i class="nav-icon fas fa-city"></i>
                                             <p>
                                                 {{ __('Countries') }}
-                                                <span class="right badge badge-danger">{{ __('New') }}</span>
                                             </p>
                                         </a>
                                     </li>
@@ -156,7 +182,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                             <i class="fas fa-star-half-alt"></i>
                                             <p>
                                                 {{ __('Ratings') }}
-                                                <span class="right badge badge-danger">{{ __('New') }}</span>
                                             </p>
                                         </a>
                                     </li>
@@ -165,7 +190,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                             <i class="fas fa-truck"></i>
                                             <p>
                                                 {{ __('Orders') }}
-                                                <span class="right badge badge-danger">{{ __('New') }}</span>
                                             </p>
                                         </a>
                                     </li>
@@ -174,13 +198,21 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                             <i class="fas fa-bell"></i>
                                             <p>
                                                 {{ __('Notifications') }}
-                                                <span class="right badge badge-danger">{{ __('New') }}</span>
                                             </p>
                                         </a>
                                     </li>
+                                    @if ('super-admin' == Auth::user()->type)
+                                    <li class="nav-item">
+                                        <a href="{{ route('log-viewer::dashboard') }}" class="nav-link @if (URL::current() == route('log-viewer::dashboard')) active @endif">
+                                            <i class="fas fa-archive"></i>
+                                            <p>
+                                                {{ __('Logs') }}
+                                            </p>
+                                        </a>
+                                    </li>
+                                    @endif
                                 </ul>
                             </li>
-                            
                         </ul>
                     @endif
                 </nav>
@@ -310,10 +342,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <footer class="main-footer">
             <!-- To the right -->
             <div class="float-right d-none d-sm-inline text-primary">
-                {{ now(+3)->format('Y-m-d // H:i') }}
+                {{ now(+3)->format('d-m-Y // H:i') }}
             </div>
             <!-- Default to the left -->
-            <strong>Copyright &copy; 2014-2022 <a href="">TheDarkSaber</a>.</strong> All rights reserved.
+            <div style="text-align: center">
+                <strong>Copyright &copy; 2014-2022 <a href="">TheDarkSaber</a>.</strong> All rights reserved.
+            </div>
         </footer>
     </div>
     <!-- ./wrapper -->

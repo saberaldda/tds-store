@@ -48,11 +48,9 @@ class RegisteredUserController extends Controller
                 time() . '_' . preg_replace('/\s+/', '_', $file->getClientOriginalName()),
                 'public');
             
-            $image_path = 'storage/' . $image_path;
-
             // merge image to the request
             $request->merge([
-                'image_path' => $image_path,
+                'profile_photo_path' => $image_path,
             ]);
         }
 

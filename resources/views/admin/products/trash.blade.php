@@ -66,10 +66,10 @@
                     <td> {{ $product->name }} </td>
                     <td> {{ $product->description }} </td>
                     <td> @if ($product->category->name) {{  $product->category->name  }} @else {{ __('No Category') }} @endif</td>
-                    <td> {{ $product->price }} </td>
+                    <td> {{ App\Helpers\Currency::format($product->price) }} </td>
                     <td> {{ $product->quantity }} </td>
                     <td> <div class="btn btn-sm @if ($product->status == 'active') btn-success @else btn-warning @endif">{{ __($product->status) }}</div></td>
-                    <td> {{ $product->deleted_at }} </td>
+                    <td> {{ $product->deleted_at->diffForHumans() }} </td>
 
                     <td class="d-flex justify-content-between">
                         @can('restore', App\Model\Product::class)

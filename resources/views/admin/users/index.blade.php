@@ -26,6 +26,8 @@
 
 @section('content')
 
+    {{ $users->withQueryString()->links() }}
+    
     <table class="table table-bordered table-sm">
         <thead  style="position: sticky;top: 0">
             <tr>
@@ -37,7 +39,7 @@
                 <th>{{ __('Roles') }}</th>
                 <th>{{ __('Rate') }}</th>
                 <th>{{ __('Country') }}</th>
-                <th>{{ __('Ceated At') }}</th>
+                <th>{{ __('Created At') }}</th>
                 <th style="width:134px">{{ __('Oprations') }}</th>
             </tr>
         </thead>
@@ -56,7 +58,7 @@
                     </td>
                     <td> {{ round($user->profile->ratings->avg('rating'),1) }} </td>
                     <td> {{ $user->country->name }} </td>
-                    <td> {{ $user->created_at }} </td>
+                    <td> {{ $user->created_at->diffForHumans() }} </td>
                     <td class="d-flex justify-content-between ">
                         @can('view', $user)
                         <a href="{{ route('users.show', $user->id) }}" class="btn btn-sm btn-success" title="{{ __('Show') }}"><i class="fas fa-eye"></i></a>

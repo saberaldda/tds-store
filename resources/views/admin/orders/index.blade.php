@@ -52,7 +52,7 @@
                     <form action="{{ route('orders.change-status', $order->id) }}" method="post" id="cahngestatus{{ $order->id }}" style="display: none">
                         @csrf
                     </form>
-                    <td> {{ $order->created_at }} </td>
+                    <td> {{ $order->created_at->diffForHumans() }} </td>
                 </tr>
             @endforeach
         </tbody>

@@ -38,7 +38,7 @@
                 <th>{{ __('Parent Name') }}</th>
                 <th>{{ __('Products Count') }}</th>
                 <th>{{ __('Status') }}</th>
-                <th>{{ __('Ceated At') }}</th>
+                <th>{{ __('Created At') }}</th>
                 <th style="width:134px">{{ __('Oprations') }}</th>
             </tr>
         </thead>
@@ -55,7 +55,7 @@
                     <form action="{{ route('categories.change-status', $category->id) }}" method="post" id="cahngestatus{{ $category->id }}" style="display: none">
                         @csrf
                     </form>
-                    <td> {{ $category->created_at }}</td>
+                    <td> {{ $category->created_at->diffForHumans() }}</td>
                     <td class="d-flex justify-content-between ">
                         @can('view', $category)
                         <a href="{{ route('categories.show', $category->id) }}" class="btn btn-sm btn-success" title="{{ __('Show') }}"><i class="fas fa-eye"></i></a>

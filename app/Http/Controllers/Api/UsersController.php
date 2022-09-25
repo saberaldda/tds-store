@@ -57,6 +57,7 @@ class UsersController extends Controller
             'password'              => Hash::make($request->post('password')),
             'password_confirmation' => Hash::make($request->post('password_confirmation')),
             'country_id'            => $request->post('country'),
+            'type'                  => 'user',
         ]);
         
         $user = User::create($request->all());

@@ -30,7 +30,7 @@
                 <th>{{ __('Role Name') }}</th>
                 <th class=" text-center">{{ __('Abilities') }}</th>
                 <th>{{ __('User/s Name') }}</th>
-                <th>{{ __('Ceated At') }}</th>
+                <th>{{ __('Created At') }}</th>
                 <th style="width:179px">{{ __('Oprations') }}</th>
             </tr>
         </thead>
@@ -44,7 +44,7 @@
                         {{ $user->name . " , "}}
                         @endforeach 
                     </td>
-                    <td> {{ $role->created_at }} </td>
+                    <td> {{ $role->created_at->diffForHumans() }} </td>
                     <td class="d-flex justify-content-between ">
                         @can('view', $role)
                         <a href="{{ route('roles.show', $role->id) }}" class="btn btn-sm btn-success" title="{{ __('Show') }}"><i class="fas fa-eye"></i></a>

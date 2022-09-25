@@ -70,7 +70,7 @@
                         @endforeach 
                     </td>
                     <td> {{ $user->country->name }} </td>
-                    <td> {{ $user->deleted_at }} </td>
+                    <td> {{ $user->deleted_at->diffForHumans() }} </td>
 
                     <td class="d-flex justify-content-between">
                         @can('restore', App\Model\User::class)

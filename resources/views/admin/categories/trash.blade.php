@@ -66,7 +66,7 @@
                     <td> {{ @$category->parent->name }}</td> {{-- @ for escape the empty result --}}
                     <td> {{ $category->count }}</td> {{-- products as count --}}
                     <td> <div class="btn btn-sm  @if ($category->status == 'active') btn-success @else btn-warning @endif">{{ __($category->status) }}</div></td>
-                    <td> {{ $category->deleted_at }}</td>
+                    <td> {{ $category->deleted_at->diffForHumans() }}</td>
 
                     <td class="d-flex justify-content-between">
                         @can('restore', App\Model\Category::class)

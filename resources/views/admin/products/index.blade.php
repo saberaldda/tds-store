@@ -40,7 +40,7 @@
                 <th>{{ __('Qty.') }}</th>
                 <th>{{ __('Rate') }}</th>
                 <th>{{ __('Status') }}</th>
-                <th>{{ __('Ceated At') }}</th>
+                <th>{{ __('Created At') }}</th>
                 <th style="width:134px">{{ __('Oprations') }}</th>
             </tr>
         </thead>
@@ -53,14 +53,14 @@
                     <td> {{ $product->user->name }} </td>
                     <td> {{ $product->description }} </td>
                     <td> @if ($product->category->name) {{  $product->category->name  }} @else {{ __('No Category') }} @endif</td> {{-- {{ $product->category->parent->name }} --}}
-                    <td> {{ $product->formatted_price }} </td>
+                    <td> {{ App\Helpers\Currency::format($product->price) }} </td>
                     <td><b> {{ $product->quantity }} </b></td>
                     <td> {{ round($product->ratings->avg('rating'),1) }} </td>
                     <td> <div class="btn btn-sm @if ($product->status == 'active') btn-success @else btn-warning @endif" onclick="document.getElementById('cahngestatus{{ $product->id }}').submit()">{{ __($product->status) }}</div></td>
                     <form action="{{ route('products.change-status', $product->id) }}" method="post" id="cahngestatus{{ $product->id }}" style="display: none">
                         @csrf
                     </form>
-                    <td> {{ $product->created_at }} </td>
+                    <td> {{ $product->created_at->diffForHumans() }} </td>
                     <td class="d-flex justify-content-between ">
                         @can('view', $product)
                         <a href="{{ route('products.show', $product->id) }}" class="btn btn-sm btn-success" title="{{ __('Show') }}"><i class="fas fa-eye"></i></a>
