@@ -35,4 +35,8 @@ return [
     'countries.view-any'        => 'View any country',
     'countries.create'          => 'create new country',
     'countries.delete'          => 'Delete country',
+
+    'orders.view-any'           => 'View any order',
+    'orders.view'               => 'View order',
+    'orders.update'             => 'Update order',
 ];

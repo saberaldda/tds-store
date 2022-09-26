@@ -57,7 +57,7 @@
                         @endforeach 
                     </td>
                     <td> {{ round($user->profile->ratings->avg('rating'),1) }} </td>
-                    <td> {{ $user->country->name }} </td>
+                    <td> {{ __($user->country->name) }} </td>
                     <td> {{ $user->created_at->diffForHumans() }} </td>
                     <td class="d-flex justify-content-between ">
                         @can('view', $user)

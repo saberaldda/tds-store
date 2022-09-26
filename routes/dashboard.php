@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\ProductsController;
 use App\Http\Controllers\Admin\RatingsController;
 use App\Http\Controllers\Admin\RolesController;
 use App\Http\Controllers\Admin\UsersController;
+use App\Http\Controllers\ContactController;
 use Illuminate\Support\Facades\Route;
 
 // Admin
@@ -19,6 +20,14 @@ Route::prefix('admin')
         Route::get('/dashboard', function () {
             return view('layouts.admin');
         })->name('dashboard');
+
+            // contact-us
+        Route::controller(ContactController::class)
+            ->withoutMiddleware(['auth.type:super-admin,admin'])
+            ->group(function () {
+                Route::get('/contact-us', 'index')->name('contact.index');
+                Route::post('/contact-us', 'store')->name('contact.store');
+        });
 
             // categories
         Route::controller(CategoriesController::class)

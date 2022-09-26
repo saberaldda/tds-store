@@ -39,7 +39,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <a href="{{ route('dashboard') }}" class="nav-link">{{ __('Home') }}</a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="#" class="nav-link">{{ __('Contact') }}</a>
+                    <a href="{{ route('contact.index') }}" class="nav-link">{{ __('Contact') }}</a>
                 </li>
             </ul>
 

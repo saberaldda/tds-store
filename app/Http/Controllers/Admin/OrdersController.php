@@ -15,7 +15,7 @@ class OrdersController extends Controller
      */
     public function index()
     {
-        // $this->authorize('viewAny', Order::class);
+        $this->authorize('viewAny', Order::class);
 
         $orders = Order::with('user')->paginate(25);
 
@@ -54,7 +54,7 @@ class OrdersController extends Controller
      */
     public function show(Order $order)
     {
-        // $this->authorize('view', $order);
+        $this->authorize('view', $order);
 
         $order = $order->load('user', 'products');
 
@@ -100,6 +100,8 @@ class OrdersController extends Controller
 
     public function changeStatus(Order $order)
     {
+        $this->authorize('update', $order);
+
         if (!($order->status == 'complete')) {
             $status = 'complete';
         }
