@@ -27,7 +27,7 @@ Route::middleware('auth:sanctum')
     ->group(function () {
 
         // Tokens
-        Route::post('auth/tokens', [AccessTokensController::class, 'store']);
+        Route::post('auth/tokens', [AccessTokensController::class, 'store'])->withoutMiddleware('auth:sanctum');
         Route::delete('auth/tokens', [AccessTokensController::class, 'destroy']);
 
         // Auth User

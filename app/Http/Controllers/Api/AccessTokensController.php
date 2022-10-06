@@ -48,13 +48,19 @@ class AccessTokensController extends Controller
         //     'ip' => $request->ip(),
         // ])->save();
 
-        Log::info("User $user->name logged in from" . $request->ip(), [  // register in log without error
-            'ip' => $request->ip(),
-            'device' => $request->input('device_name'),
-        ]);
+        Log::info("User (".$user->name.") Logged IN By (api)", [
+            'User Name'     => $user->name,
+            'User Email'    => $user->email,
+            'User Type'     => $user->type,
+            'Logged At'     => now()->format('Y-m-d H:i:s'),
+            'IP Address'    => $request->ip(),
+            'over'          => 'api',
+            'token'         => $token->plainTextToken,
+            'device'        => $request->input('device_name'),
+        ]);;
 
         return Response::json([
-            'message'   => 'Access Token Created',
+            'message'   => 'You Are Logged IN',
             'status'    => 201,
             'data'      => [
                 'token' => $token->plainTextToken,
@@ -63,9 +69,19 @@ class AccessTokensController extends Controller
         ],201);
     }
 
-    public function destroy()
+    public function destroy(Request $request)
     {
         $user = Auth::guard('sanctum')->user();
+
+        Log::info("User (".$request->user()->name.") Logged OUT By (api)", [
+            'User Name'     => $user->name,
+            'User Email'    => $user->email,
+            'User Type'     => $user->type,
+            'Logged At'     => now()->format('Y-m-d H:i:s'),
+            'IP Address'    => $request->ip(),
+            'over'          => 'api',
+            'device'        => $user->currentAccessToken()->name,
+        ]);
 
         // Revoke (delete) all user tokens
         // $user->tokens()->delete();
@@ -74,7 +90,7 @@ class AccessTokensController extends Controller
         $user->currentAccessToken()->delete();
 
         return response()->json([
-            'message'   => 'Access Token Revoked',
+            'message'   => 'You Are Logged OUT',
             'status'    => 200,
         ]);
     }

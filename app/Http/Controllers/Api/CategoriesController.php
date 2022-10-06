@@ -15,6 +15,8 @@ class CategoriesController extends Controller
      */
     public function index(Request $request)
     {
+        $this->authorize('viewAny', Category::class);
+
         $categories = Category::withCount('products')
             ->when($request->query('name'), function($query, $value) { $query->where('name', 'LIKE', "%{$value}%"); })
             ->when($request->query('status'), function($query, $value) { $query->where('status', '=', $value); })
@@ -35,6 +37,8 @@ class CategoriesController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create', Category::class);
+
         $request->validate(Category::validateRules());
 
         // merge slug in model
@@ -73,6 +77,8 @@ class CategoriesController extends Controller
     {
         $category = Category::findOrFail($id)->load('products');
 
+        $this->authorize('view', $category);
+
         return response()->json([
             'message'   => 'OK',
             'status'    => 200,
@@ -98,6 +104,9 @@ class CategoriesController extends Controller
         ]);
 
         $category = Category::findOrFail($id);
+        
+        $this->authorize('update', $category);
+        
         $category->update($request->all());
         // $category->refresh();
 
@@ -117,6 +126,9 @@ class CategoriesController extends Controller
     public function destroy($id)
     {
         $category = Category::findOrFail($id);
+        
+        $this->authorize('delete', $category);
+
         $category->delete();
 
         return response()->json([
@@ -127,6 +139,8 @@ class CategoriesController extends Controller
 
     public function restore(Request $request, $id = null)
     {
+        $this->authorize('restore', Category::class);
+
         if ($id) {
             $category = Category::withoutGlobalScope('active')->onlyTrashed()->findOrFail($id);
             $category->restore();
@@ -148,6 +162,8 @@ class CategoriesController extends Controller
 
     public function forceDelete($id = null)
     {
+        $this->authorize('forceDelete', Category::class);
+        
         if ($id) {
             $category = Category::withoutGlobalScope('active')->onlyTrashed()->findOrFail($id);
             $category->forceDelete();

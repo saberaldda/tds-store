@@ -1,33 +1,47 @@
 <?php
-
+ 
 namespace App\Providers;
-
-// use Illuminate\Support\Facades\Gate;
+ 
+use App\Models\Category;
+use App\Models\Country;
+use App\Models\Order;
+use App\Models\Product;
+use App\Models\Role;
+use App\Models\User;
+use App\Policies\CategoryPolicy;
+use App\Policies\CountryPolicy;
+use App\Policies\OrderPolicy;
+use App\Policies\ProductPolicy;
+use App\Policies\RolePolicy;
+use App\Policies\UserPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Gate;
 
 class AuthServiceProvider extends ServiceProvider
 {
     /**
-     * The model to policy mappings for the application.
+     * The policy mappings for the application.
      *
-     * @var array<class-string, class-string>
+     * @var array
      */
     protected $policies = [
-        // 'App\Models\Model' => 'App\Policies\ModelPolicy',
-        'App\Models\Category' => 'App\Policies\CategoryPolicy',
-        'App\Models\Product' => 'App\Policies\ProductPolicy',
-        'App\Models\Role' => 'App\Policies\RolePolicy',
+        Category::class => CategoryPolicy::class,
+        Product::class  => ProductPolicy::class,
+        User::class     => UserPolicy::class,
+        Role::class     => RolePolicy::class,
+        Country::class  => CountryPolicy::class,
+        Order::class    => OrderPolicy::class,
+        
     ];
-
+ 
     /**
-     * Register any authentication / authorization services.
+     * Register any application authentication / authorization services.
      *
      * @return void
      */
     public function boot()
     {
         $this->registerPolicies();
-
         //
     }
 }

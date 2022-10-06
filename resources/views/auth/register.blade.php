@@ -30,7 +30,7 @@
             <div class="mt-4">
                 <x-label for="image" :value="__('Image')" />
 
-                <x-input id="image" class="block mt-1 w-full" type="file" name="image" :value="old('image')" required />
+                <x-input id="image" class="block mt-1 w-full" type="file" name="image" :value="old('image')" />
             </div>
 
             <!-- Password -->

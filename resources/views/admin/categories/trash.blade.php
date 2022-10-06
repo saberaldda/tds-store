@@ -89,6 +89,11 @@
             @endforeach
         </tbody>
     </table>
+    @if ($categories->isEmpty())
+        <div style="text-align: center; margin-top: 15%">
+            <h2><b> {{ __('The Trash Is Empty') }} </b></h2>
+        </div>
+    @endif
 
     {{ $categories->withQueryString()->links() }}
 @endsection

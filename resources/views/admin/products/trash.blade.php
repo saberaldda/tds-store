@@ -92,6 +92,11 @@
             @endforeach
         </tbody>
     </table>
+    @if ($products->isEmpty())
+        <div style="text-align: center; margin-top: 15%">
+            <h2><b> {{ __('The Trash Is Empty') }} </b></h2>
+        </div>
+    @endif
 
     {{ $products->withQueryString()->links() }}
 @endsection

@@ -123,7 +123,8 @@
                         </thead>
                         <tbody>
                             @forelse($entries as $key => $entry)
-                                <tr>
+                                <tr data-toggle="collapse"
+                                href="#log-context-{{ $key }}" aria-expanded="false" aria-controls="log-context-{{ $key }}">
                                     <td>
                                         <span class="badge badge-env">{{ $entry->env }}</span>
                                     </td>

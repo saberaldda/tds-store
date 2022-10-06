@@ -137,6 +137,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     </p>
                                 </a>
                                 <ul class="nav nav-treeview">
+                                    @can('viewAny', App\Models\User::class)
                                     <li class="nav-item">
                                         <a href="{{ route('users.index') }}" class="nav-link @if (URL::current() == route('users.index')) active @endif">
                                             <i class="nav-icon fas fa-users"></i>
@@ -145,6 +146,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                             </p>
                                         </a>
                                     </li>
+                                    @endcan
+                                    @can('viewAny', App\Models\Category::class)
                                     <li class="nav-item">
                                         <a href="{{ route('categories.index') }}" class="nav-link @if (URL::current() == route('categories.index')) active @endif">
                                             <i class="nav-icon fas fa-folder"></i>
@@ -153,6 +156,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                             </p>
                                         </a>
                                     </li>
+                                    @endcan
+                                    @can('viewAny', App\Models\Product::class)
                                     <li class="nav-item">
                                         <a href="{{ route('products.index') }}" class="nav-link @if (URL::current() == route('products.index')) active @endif">
                                             <i class="nav-icon fas fa-shopping-cart"></i>
@@ -161,6 +166,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                             </p>
                                         </a>
                                     </li>
+                                    @endcan
+                                    @can('viewAny', App\Models\Role::class)
                                     <li class="nav-item">
                                         <a href="{{ route('roles.index') }}" class="nav-link @if (URL::current() == route('roles.index')) active @endif">
                                             <i class="nav-icon fas fa-unlock-alt"></i>
@@ -169,6 +176,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                             </p>
                                         </a>
                                     </li>
+                                    @endcan
+                                    @can('viewAny', App\Models\Country::class)
                                     <li class="nav-item">
                                         <a href="{{ route('countries.index') }}" class="nav-link @if (URL::current() == route('countries.index')) active @endif">
                                             <i class="nav-icon fas fa-city"></i>
@@ -177,6 +186,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                             </p>
                                         </a>
                                     </li>
+                                    @endcan
                                     <li class="nav-item">
                                         <a href="{{ route('ratings.index') }}" class="nav-link @if (URL::current() == route('ratings.index')) active @endif">
                                             <i class="fas fa-star-half-alt"></i>
@@ -185,6 +195,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                             </p>
                                         </a>
                                     </li>
+                                    @can('viewAny', App\Models\Order::class)
                                     <li class="nav-item">
                                         <a href="{{ route('orders.index') }}" class="nav-link @if (URL::current() == route('orders.index')) active @endif">
                                             <i class="fas fa-truck"></i>
@@ -193,6 +204,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                             </p>
                                         </a>
                                     </li>
+                                    @endcan
                                     <li class="nav-item">
                                         <a href="{{ route('notifications') }}" class="nav-link @if (URL::current() == route('notifications')) active @endif">
                                             <i class="fas fa-bell"></i>
@@ -342,11 +354,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <footer class="main-footer">
             <!-- To the right -->
             <div class="float-right d-none d-sm-inline text-primary">
-                {{ now(+3)->format('d-m-Y // H:i') }}
+                    <h6 id='ct7' style="font-weight: bold"></h6>
             </div>
             <!-- Default to the left -->
             <div style="text-align: center">
-                <strong>Copyright &copy; 2014-2022 <a href="">TheDarkSaber</a>.</strong> All rights reserved.
+                <strong>Copyright &copy; {{ date('Y') }} <a href="">TheDarkSaber</a>.</strong> All rights reserved.
             </div>
         </footer>
     </div>
@@ -366,6 +378,37 @@ scratch. This page gets rid of all links and provides the needed markup only.
     </script>
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/firebase.js') }}"></script>
+    <!-- Time Format And View -->
+    <script>function display_ct7() {
+        var x = new Date()
+        var ampm = x.getHours( ) >= 12 ? ' PM' : ' AM';
+        hours = x.getHours( ) % 12;
+        hours = hours ? hours : 12;
+        hours=hours.toString().length==1? 0+hours.toString() : hours;
+        
+        var minutes=x.getMinutes().toString()
+        minutes=minutes.length==1 ? 0+minutes : minutes;
+        
+        var seconds=x.getSeconds().toString()
+        seconds=seconds.length==1 ? 0+seconds : seconds;
+        
+        var month=(x.getMonth() +1).toString();
+        month=month.length==1 ? 0+month : month;
+        
+        var dt=x.getDate().toString();
+        dt=dt.length==1 ? 0+dt : dt;
+        
+        var x1=dt + "/" + month + "/" + x.getFullYear(); 
+        x1 = x1 + " - " +  hours + ":" +  minutes + ":" +  seconds + " " + ampm;
+        document.getElementById('ct7').innerHTML = x1;
+        display_c7();
+        }
+        function display_c7(){
+        var refresh=1000; // Refresh rate in milli seconds
+        mytime=setTimeout('display_ct7()',refresh)
+        }
+        display_c7()
+    </script>
 </body>
 
 </html>

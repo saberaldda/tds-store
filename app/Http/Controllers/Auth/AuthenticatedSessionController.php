@@ -7,6 +7,7 @@ use App\Http\Requests\Auth\LoginRequest;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 class AuthenticatedSessionController extends Controller
@@ -33,6 +34,15 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
+        Log::info("User (".$request->user()->name.") Logged IN By (web)", [
+            'User Name'     => $request->user()->name,
+            'User Email'    => $request->user()->email,
+            'User Type'     => $request->user()->type,
+            'Logged At'     => now()->format('Y-m-d H:i:s'),
+            'IP Address'    => $request->ip(),
+            'By'          => 'web',
+        ]);
+
         return redirect()->intended(RouteServiceProvider::ADMIN);
     }
 
@@ -44,6 +54,15 @@ class AuthenticatedSessionController extends Controller
      */
     public function destroy(Request $request)
     {
+        Log::info("User (".$request->user()->name.") Logged OUT By (web)", [
+            'User Name'     => $request->user()->name,
+            'User Email'    => $request->user()->email,
+            'User Type'     => $request->user()->type,
+            'Logged At'     => now()->format('Y-m-d H:i:s'),
+            'IP Address'    => $request->ip(),
+            'By'          => 'web',
+        ]);
+
         Auth::guard('web')->logout();
 
         $request->session()->invalidate();

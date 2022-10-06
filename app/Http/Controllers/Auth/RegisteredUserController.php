@@ -9,6 +9,7 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\Rules;
 
 class RegisteredUserController extends Controller
@@ -37,7 +38,7 @@ class RegisteredUserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'image'    => ['required'],
+            'image'    => ['nullable'],
         ]);
 
         // sheck if image in request
@@ -62,6 +63,14 @@ class RegisteredUserController extends Controller
         ]);
 
         event(new Registered($user));
+
+        Log::info("New User (".$request->input('name').") Register ", [
+            'User Name'     => $request->input('name'),
+            'User Email'    => $request->input('email'),
+            'Logged At'     => now()->format('Y-m-d H:i:s'),
+            'IP Address'    => $request->ip(),
+            'By'          => 'web',
+        ]);
 
         Auth::login($user);
 

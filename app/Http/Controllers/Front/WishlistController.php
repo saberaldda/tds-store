@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
-use App\Models\wishlist;
+use App\Models\Wishlist;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -18,7 +18,7 @@ class WishlistController extends Controller
     public function index()
     {
         $categories = Category::active()->with(['products'])->withCount('products')->get();
-        $wishlist = wishlist::where('user_id', '=', Auth::id())->with('product')->get();
+        $wishlist = Wishlist::where('user_id', '=', Auth::id())->with('product')->get();
 
         return view('front.wishlist', [
             'categories'    => $categories,
