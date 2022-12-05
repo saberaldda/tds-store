@@ -64,7 +64,7 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
 
-        Log::info("New User (".$request->input('name').") Register ", [
+        Log::stack(['daily','db'])->info("New User (".$request->input('name').") Register ", [
             'User Name'     => $request->input('name'),
             'User Email'    => $request->input('email'),
             'Logged At'     => now()->format('Y-m-d H:i:s'),

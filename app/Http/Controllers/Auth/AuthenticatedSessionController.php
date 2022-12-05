@@ -34,7 +34,7 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        Log::info("User (".$request->user()->name.") Logged IN By (web)", [
+        Log::stack(['daily','db'])->info("User (".$request->user()->name.") Logged IN By (web)", [
             'User Name'     => $request->user()->name,
             'User Email'    => $request->user()->email,
             'User Type'     => $request->user()->type,
@@ -54,7 +54,7 @@ class AuthenticatedSessionController extends Controller
      */
     public function destroy(Request $request)
     {
-        Log::info("User (".$request->user()->name.") Logged OUT By (web)", [
+        Log::stack(['daily','db'])->info("User (".$request->user()->name.") Logged OUT By (web)", [
             'User Name'     => $request->user()->name,
             'User Email'    => $request->user()->email,
             'User Type'     => $request->user()->type,

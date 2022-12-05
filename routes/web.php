@@ -23,6 +23,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+require __DIR__.'/auth.php';
+require __DIR__.'/dashboard.php';
+require __DIR__.'/front.php';
+
 // Home
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::post('home/rate', [HomeController::class, 'rate'])->name('home.rate')->middleware('auth');
@@ -68,10 +73,3 @@ Route::get('test', [TestController::class, 'index']);
 // Regular Expreion
 // src="([^"]+)"
 // src="{{ asset('assets/front/$1') }}"
-
-
-require __DIR__.'/auth.php';
-
-require __DIR__.'/dashboard.php';
-
-require __DIR__.'/front.php';

@@ -48,7 +48,7 @@ class AccessTokensController extends Controller
         //     'ip' => $request->ip(),
         // ])->save();
 
-        Log::info("User (".$user->name.") Logged IN By (api)", [
+        Log::stack(['daily','db'])->info("User (".$user->name.") Logged IN By (api)", [
             'User Name'     => $user->name,
             'User Email'    => $user->email,
             'User Type'     => $user->type,
@@ -73,7 +73,7 @@ class AccessTokensController extends Controller
     {
         $user = Auth::guard('sanctum')->user();
 
-        Log::info("User (".$request->user()->name.") Logged OUT By (api)", [
+        Log::stack(['daily','db'])->info("User (".$request->user()->name.") Logged OUT By (api)", [
             'User Name'     => $user->name,
             'User Email'    => $user->email,
             'User Type'     => $user->type,

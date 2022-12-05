@@ -32,10 +32,10 @@ class RatingsController extends Controller
     {
         if ($type == 'product') {
             $model = new Product();
-            $entries = Product::all();
+            $entries = Product::all('id','name');
         }elseif ($type == 'profile'){
             $model = new Profile();
-            $entries = User::all();
+            $entries = User::all('id','name');
         }
 
         return view('admin.ratings.create', [

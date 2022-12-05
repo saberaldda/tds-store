@@ -3,6 +3,7 @@
 use Monolog\Handler\NullHandler;
 use Monolog\Handler\StreamHandler;
 use Monolog\Handler\SyslogUdpHandler;
+use Yoeriboven\LaravelLogDb\DatabaseLogger;
 
 return [
 
@@ -51,6 +52,11 @@ return [
     */
 
     'channels' => [
+        'db' => [
+            'driver' => 'custom',
+            'via'    => DatabaseLogger::class,
+        ],
+
         'stack' => [
             'driver' => 'stack',
             'channels' => ['single'],

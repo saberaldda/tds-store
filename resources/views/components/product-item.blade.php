@@ -1,5 +1,5 @@
 <div class="ps-shoe mb-30">
-    <div class="ps-shoe__thumbnail"><a class="ps-shoe__favorite" href="#" onclick="event.preventDefault(); document.getElementById('wish{{ $product->id }}').submit()"><i class="ps-icon-heart"></i></a width="500" height="600"><img src="{{ $product->image_url }}" alt=""><a class="ps-shoe__overlay" width="760" height="760" href="{{ route('product.details', $product->slug) }}"></a>
+    <div class="ps-shoe__thumbnail"><a class="ps-shoe__favorite" href="#" onclick="event.preventDefault(); document.getElementById('wish{{ $product->id }}').submit()"><i class="ps-icon-heart"></i></a width="500" height="600"><img src="{{ $product->image_url }}" loading="lazy" alt=""><a class="ps-shoe__overlay" width="760" height="760" href="{{ route('product.details', $product->slug) }}"></a>
     </div>
     <form action="{{ route('wishlist') }}" method="post" id="wish{{ $product->id }}">
       @csrf

@@ -48,6 +48,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <!-- Navbar Search -->
                 @yield('search')
 
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('home') }}"  role="button">
+                        {{ config('app.name'); }} <i class="fas fa-globe"></i>
+                    </a>
+                </li>
+
                 <!-- language switcher -->
                 <x-lang-switcher/>
 
