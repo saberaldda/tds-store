@@ -9,6 +9,7 @@ TDS-Store is an e-commerce store with dashboard for multi managers.
 
 * [Screenshots](#screenshots)
 * [Requirements](#requirements)
+* [Dependencies](#dependencies)
 * [Installation](#installation)
 * [Contributing](#contributing)
 
@@ -30,6 +31,17 @@ Package | Version
 [Php](https://www.php.net/)          | V8.0.2+
 [Node](https://nodejs.org/en/)       | v18.12.0+
 [Npm](https://nodejs.org/en/)        | V9.1.2+ 
+
+<a name="dependencies"></a>
+## dependencies
+
+Package | Version
+---- | ----
+[amrshawky/laravel-currency](https://github.com/amrshawky/laravel-currency) | ^5.0
+[arcanedev/log-viewer](https://github.com/ARCANEDEV/LogViewer) | ^9.0
+[yoeriboven/laravel-log-db](https://github.com/yoeriboven/laravel-log-db) | ^1.0
+[paypal/paypal-checkout-sdk](https://github.com/paypal/Checkout-PHP-SDK) | ^1.0
+[pusher/pusher-php-server](https://github.com/pusher/pusher-http-php) | ^7.0
 
 <a name="installation"></a>
 ## Installation
