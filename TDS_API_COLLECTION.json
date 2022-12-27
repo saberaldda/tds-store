@@ -1,0 +1,2329 @@
+{
+	"info": {
+		"_postman_id": "587a2d4e-515b-436c-85c3-abc4c62b7e0e",
+		"name": "TDS-store",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19923061"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "The Login User Info",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/api/user",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "qassam@tds.com",
+									"description": "User Name (Email)",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "password",
+									"description": "User Password",
+									"type": "text"
+								},
+								{
+									"key": "device_name",
+									"value": "postman",
+									"description": "Device Name OR Type",
+									"type": "text"
+								},
+								{
+									"key": "abilities",
+									"value": "1",
+									"description": "User Abilities 1,2,3,4,5 Array",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{host}}/api/auth/tokens",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"tokens"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Super-admin",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "username",
+											"value": "saber@tds.com",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "password",
+											"type": "text"
+										},
+										{
+											"key": "device_name",
+											"value": "postman",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{host}}/api/auth/tokens",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"auth",
+										"tokens"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 14 Sep 2022 03:55:44 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 14 Sep 2022 03:55:44 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.1.5"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "59"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"token\": \"1|691OwVGY5lV113RE9PyP3WzOatGFmZzGdTCPKBou\",\n    \"user\": {\n        \"id\": 1,\n        \"name\": \"Saber\",\n        \"type\": \"super-admin\",\n        \"email\": \"saber@tds.com\",\n        \"email_verified_at\": \"2022-08-12T20:41:51.000000Z\",\n        \"country_id\": 1,\n        \"profile_photo_path\": \"uploads/1662438436user2.jpg\",\n        \"created_at\": \"2022-08-12T20:41:51.000000Z\",\n        \"updated_at\": \"2022-09-06T04:27:16.000000Z\",\n        \"deleted_at\": null,\n        \"image_url\": \"http://localhost:8000/storage/uploads/1662438436user2.jpg\"\n    }\n}"
+						},
+						{
+							"name": "Admin",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "username",
+											"value": "ahmad@tds.com",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "password",
+											"type": "text"
+										},
+										{
+											"key": "device_name",
+											"value": "postman",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{host}}/api/auth/tokens",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"auth",
+										"tokens"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 14 Sep 2022 07:45:25 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 14 Sep 2022 07:45:25 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.1.5"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "59"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"token\": \"3|EIo3RvuYvWh1pfaQ73cLOfDR4itrpJaG4XlMc56n\",\n    \"user\": {\n        \"id\": 2,\n        \"name\": \"Ahmad\",\n        \"type\": \"admin\",\n        \"email\": \"ahmad@tds.com\",\n        \"email_verified_at\": \"2022-08-12T20:41:51.000000Z\",\n        \"country_id\": 1,\n        \"profile_photo_path\": \"uploads/1661511352user2.jpg\",\n        \"created_at\": \"2022-08-12T20:41:51.000000Z\",\n        \"updated_at\": \"2022-08-26T10:55:52.000000Z\",\n        \"deleted_at\": null,\n        \"image_url\": \"http://localhost:8000/storage/uploads/1661511352user2.jpg\"\n    }\n}"
+						},
+						{
+							"name": "User",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "username",
+											"value": "qassam@tds.com",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "password",
+											"type": "text"
+										},
+										{
+											"key": "device_name",
+											"value": "postman",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{host}}/api/auth/tokens",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"auth",
+										"tokens"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 14 Sep 2022 07:49:06 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 14 Sep 2022 07:49:06 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.1.5"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "59"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"token\": \"4|YeXflxCnJxsP8shZvNQc3SlpbwZ3WEGZR9ocoj4A\",\n    \"user\": {\n        \"id\": 3,\n        \"name\": \"Qassam\",\n        \"type\": \"user\",\n        \"email\": \"qassam@tds.com\",\n        \"email_verified_at\": \"2022-08-12T20:41:52.000000Z\",\n        \"country_id\": 1,\n        \"profile_photo_path\": \"uploads/1661511366user3.jpg\",\n        \"created_at\": \"2022-08-12T20:41:52.000000Z\",\n        \"updated_at\": \"2022-08-26T10:56:06.000000Z\",\n        \"deleted_at\": null,\n        \"image_url\": \"http://localhost:8000/storage/uploads/1661511366user3.jpg\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "7|4UmSfK3H9NlI0rOZPcNWf8FkSUZjqjzUyjAkpSDK",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/api/auth/tokens",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"tokens"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Users List",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/api/users",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"users"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "2",
+									"description": "Pagenation / Page Number",
+									"disabled": true
+								},
+								{
+									"key": "name",
+									"value": "ahmad",
+									"description": "Search / User Name",
+									"disabled": true
+								},
+								{
+									"key": "email",
+									"value": "ahmad@tds.com",
+									"description": "Search / User Email",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "api",
+									"description": "required / User Name",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "api2@tds.com",
+									"description": "required / User Email",
+									"type": "text"
+								},
+								{
+									"key": "type",
+									"value": "admin",
+									"description": "required / User Type (super-admin, admin, user)",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"description": "User Image",
+									"type": "file",
+									"src": "/C:/Users/Saber/Desktop/store images/user.jpg"
+								},
+								{
+									"key": "password",
+									"value": "password",
+									"description": "required / User Password",
+									"type": "text"
+								},
+								{
+									"key": "password_confirmation",
+									"value": "password",
+									"description": "required / Confirm Password",
+									"type": "text"
+								},
+								{
+									"key": "country",
+									"value": "1",
+									"description": "Country_id (NUM)",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{host}}/api/users",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Info",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/api/users/44",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"44"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "api update",
+									"description": "required / User Name",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "api3update@tds.com",
+									"description": "required / User Email",
+									"type": "text"
+								},
+								{
+									"key": "type",
+									"value": "user",
+									"description": "required / User Type (super-admin, admin, user)",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"description": "User Image",
+									"type": "file",
+									"src": [
+										"/C:/Users/Saber/Desktop/store images/user.jpg"
+									]
+								},
+								{
+									"key": "password",
+									"value": "password",
+									"description": "required / User Password",
+									"type": "text"
+								},
+								{
+									"key": "password_confirmation",
+									"value": "password",
+									"description": "required / Confirm Password",
+									"type": "text"
+								},
+								{
+									"key": "country",
+									"value": "1",
+									"description": "Country_id (NUM)",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{host}}/api/users/{id}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"{id}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Trash User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/api/users/{id}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"{id}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Restore User/s",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/api/users/trash/{?id}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"trash",
+								"{"
+							],
+							"query": [
+								{
+									"key": "id}",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Trashed User/s",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/api/users/trash/{?id}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"trash",
+								"{"
+							],
+							"query": [
+								{
+									"key": "id}",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Categories",
+			"item": [
+				{
+					"name": "Categories List",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/api/categories",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"categories"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"description": "Pagenation / Page Number",
+									"disabled": true
+								},
+								{
+									"key": "name",
+									"value": "api",
+									"description": "Search / Name",
+									"disabled": true
+								},
+								{
+									"key": "status",
+									"value": "archived",
+									"description": "Search / Status",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Category",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "category API 2",
+									"description": "Required / Category Name",
+									"type": "text"
+								},
+								{
+									"key": "parent_id",
+									"value": "1",
+									"description": "Category Parent ID",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "description category API 1",
+									"description": "Category Description",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"description": "Category Image",
+									"type": "file",
+									"src": "/C:/Users/Saber/Desktop/store images/ComputerSupplies/HyperX Cloud Earbuds.jpg"
+								},
+								{
+									"key": "status",
+									"value": "archived",
+									"description": "Category Status (active, archived)",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{host}}/api/categories",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Category Info",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/api/categories/{id}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"categories",
+								"{id}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Category",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "category API updated",
+									"description": "Category Name",
+									"type": "text"
+								},
+								{
+									"key": "parent_id",
+									"value": "1",
+									"description": "Category Parent ID",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "description category API 1",
+									"description": "Category Description",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"description": "Category Image",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "status",
+									"value": "archived",
+									"description": "Category Status",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{host}}/api/categories/{id}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"categories",
+								"{id}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Trash Category",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/api/categories/{id}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"categories",
+								"{id}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Restore Category/ies",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/api/categories/trash/{?id}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"categories",
+								"trash",
+								"{"
+							],
+							"query": [
+								{
+									"key": "id}",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Trashed Category/ies",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/api/categories/trash/{?id}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"categories",
+								"trash",
+								"{"
+							],
+							"query": [
+								{
+									"key": "id}",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "Products List",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/api/products",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"products"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"description": "Pagenation / Page Number",
+									"disabled": true
+								},
+								{
+									"key": "name",
+									"value": "lap",
+									"description": "Search / Name",
+									"disabled": true
+								},
+								{
+									"key": "status",
+									"value": "archived",
+									"description": "Search / Status",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Product",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "peoduct API 1",
+									"description": "required / Product Name",
+									"type": "text"
+								},
+								{
+									"key": "category_id",
+									"value": "10",
+									"description": "Product Category ID",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "description product API 1",
+									"description": "Product Description",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"description": "Product Image",
+									"type": "file",
+									"src": "/C:/Users/Saber/Desktop/store images/ComputerSupplies/HyperX Cloud Earbuds.jpg"
+								},
+								{
+									"key": "price",
+									"value": "100",
+									"description": "Product Price",
+									"type": "text"
+								},
+								{
+									"key": "sale_price",
+									"value": "0",
+									"description": "Product Sale Price",
+									"type": "text"
+								},
+								{
+									"key": "quantity",
+									"value": "10",
+									"description": "Product Quantity",
+									"type": "text"
+								},
+								{
+									"key": "status",
+									"value": "draft",
+									"description": "Product Status",
+									"type": "text"
+								},
+								{
+									"key": "sku",
+									"value": "",
+									"description": "uniqe / Product SKU",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "width",
+									"value": "0",
+									"description": "Product Width",
+									"type": "text"
+								},
+								{
+									"key": "length",
+									"value": "0",
+									"description": "Product Length",
+									"type": "text"
+								},
+								{
+									"key": "weight",
+									"value": "0",
+									"description": "Product Weight",
+									"type": "text"
+								},
+								{
+									"key": "heigth",
+									"value": "0",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{host}}/api/products",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Product Info",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/api/products/{id}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"products",
+								"{id}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Product",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "product API 1",
+									"description": "Required / Product Name",
+									"type": "text"
+								},
+								{
+									"key": "category_id",
+									"value": "10",
+									"description": "Product Category ID",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "description product API 1",
+									"description": "Product Description",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"description": "Product Image",
+									"type": "file",
+									"src": [
+										"/C:/Users/Saber/Desktop/store images/ComputerSupplies/HyperX Cloud Earbuds.jpg"
+									]
+								},
+								{
+									"key": "price",
+									"value": "100",
+									"description": "Required / Product Price",
+									"type": "text"
+								},
+								{
+									"key": "sale_price",
+									"value": "",
+									"description": "Product Sale Price",
+									"type": "text"
+								},
+								{
+									"key": "quantity",
+									"value": "10",
+									"description": "Product Quantity",
+									"type": "text"
+								},
+								{
+									"key": "status",
+									"value": "draft",
+									"description": "Product Status",
+									"type": "text"
+								},
+								{
+									"key": "sku",
+									"value": "",
+									"description": "Product SKU",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "width",
+									"value": "",
+									"description": "Product Width",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "length",
+									"value": "",
+									"description": "Product Length",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "weight",
+									"value": "",
+									"description": "Product Weight",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{host}}/api/products/{id}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"products",
+								"{id}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Trash Product",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/api/products/{id}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"products",
+								"{id}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Restore Product/s",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/api/products/trash/{?id}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"products",
+								"trash",
+								"{"
+							],
+							"query": [
+								{
+									"key": "id}",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Trashed Product/s",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/api/products/trash/{?id}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"products",
+								"trash",
+								"{"
+							],
+							"query": [
+								{
+									"key": "id}",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Roles",
+			"item": [
+				{
+					"name": "Roles List",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/api/roles",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"roles"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "member",
+									"description": "search / Role Name",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Role",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "saber",
+									"description": "Role Name",
+									"type": "text"
+								},
+								{
+									"key": "abilities",
+									"value": "saber,ahmad",
+									"description": "Role Abilities 1,2,3,4 (array)",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{host}}/api/roles",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"roles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Role Info",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/api/roles/{id}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"roles",
+								"{id}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Role",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "saber update",
+									"description": "Role Name",
+									"type": "text"
+								},
+								{
+									"key": "abilities",
+									"value": "*",
+									"description": "Role Abilities 1,2,3,4 (array)",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{host}}/api/roles/{id}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"roles",
+								"{id}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Role",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/api/roles/{id}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"roles",
+								"{id}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Assign User/s To Role",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "users",
+									"value": "1,2,3",
+									"description": "Assign User/s  user ID 1,user ID 2,user ID 3  (array)",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{host}}/api/roles/assign/{id}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"roles",
+								"assign",
+								"{id}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ratings",
+			"item": [
+				{
+					"name": "Rate Product",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id",
+									"value": "1",
+									"description": "Product ID"
+								},
+								{
+									"key": "rating",
+									"value": "5",
+									"description": "Rating Value (1-5)"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{host}}/api/ratings/product",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"ratings",
+								"product"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Rate Profile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id",
+									"value": "1",
+									"description": "Profile ID"
+								},
+								{
+									"key": "rating",
+									"value": "5",
+									"description": "Rating Value (1-5)"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{host}}/api/ratings/profile",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"ratings",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "cart",
+			"item": [
+				{
+					"name": "Carts List",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/api/cart",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"cart"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Item To Current Cart",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "product_id",
+									"value": "3",
+									"description": "Required / Product ID",
+									"type": "text"
+								},
+								{
+									"key": "quantity",
+									"value": "1",
+									"description": "Quantity Num   Defualt \"1\"",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{host}}/api/cart",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"cart"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Current Cart Info",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/api/cart",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"cart"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Item From Current Cart",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "product_id",
+									"value": "3",
+									"description": "Optional / Item ID (product_id) :: If Not Set, All Cart Item Deleted",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{host}}/api/cart/clear",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"cart",
+								"clear"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "orders",
+			"item": [
+				{
+					"name": "Orders List",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/api/orders",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Order",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "billing_name",
+									"value": "saber",
+									"description": "Required / Order Billing Name",
+									"type": "text"
+								},
+								{
+									"key": "billing_email",
+									"value": "saber@tds.com",
+									"description": "Required / Order Billing Email",
+									"type": "text"
+								},
+								{
+									"key": "billing_phone",
+									"value": "123456678",
+									"description": "Required / Order Billing Phone",
+									"type": "text"
+								},
+								{
+									"key": "billing_address",
+									"value": "khanyouns",
+									"description": "Required / Order Billing Address",
+									"type": "text"
+								},
+								{
+									"key": "billing_city",
+									"value": "gaza",
+									"description": "Required / Order Billing City",
+									"type": "text"
+								},
+								{
+									"key": "billing_country",
+									"value": "1",
+									"description": "Required / Order Billing Country ID",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{host}}/api/orders",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Order Info",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/api/orders/2",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"orders",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "host",
+			"value": "localhost:8000",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": "1|691OwVGY5lV113RE9PyP3WzOatGFmZzGdTCPKBou",
+			"type": "string"
+		}
+	]
+}
