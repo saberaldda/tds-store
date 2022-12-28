@@ -29,7 +29,9 @@ class DatabaseSeeder extends Seeder
             CountriesSeeder::class,
             ProfilesSeeder::class,
         ]);
+        // Categories
         Category::factory(5)->create();
+        // SubCategories
         Category::factory(25)->create();
         Product::factory(60)->create();
     }
