@@ -25,7 +25,7 @@ class ProductFactory extends Factory
         return [
             'name'          => $name,
             'slug'          => Str::slug($name),
-            'user_id'       => rand(1,2,3),
+            'user_id'       => rand(1,3),
             'category_id'   => $category? $category->id : null,
             'description'   => $this->faker->words(5 ,true),
             'image_path'    => $this->faker->imageUrl(760,760),

@@ -23,7 +23,7 @@ class UsersTableSeeder extends Seeder
             'type'                  => 'super-admin',
             'password'              => Hash::make('password'),
             'email_verified_at'     => now(),
-            'profile_photo_path'    => 'assets/admin/img/tds.png',
+            'profile_photo_path'    => '',
             'remember_token'        => Str::random(10)
         ]);
         User::create([
@@ -32,14 +32,14 @@ class UsersTableSeeder extends Seeder
             'type'                  => 'super-admin',
             'password'              => Hash::make('password'),
             'email_verified_at'     => now(),
-            'profile_photo_path'    => 'assets/admin/img/tds.png',
+            'profile_photo_path'    => '',
             'remember_token'        => Str::random(10)
         ]);User::create([
             'name'                  => 'user',
             'email'                 => 'user@tds.com',
             'password'              => Hash::make('password'),
             'email_verified_at'     => now(),
-            'profile_photo_path'    => 'assets/admin/img/tds.png',
+            'profile_photo_path'    => '',
             'remember_token'        => Str::random(10)
         ]);
         User::create([
@@ -47,7 +47,7 @@ class UsersTableSeeder extends Seeder
             'email'                 => 'ahmad@tds.com',
             'password'              => Hash::make('password'),
             'email_verified_at'     => now(),
-            'profile_photo_path'    => 'assets/admin/img/tds.png',
+            'profile_photo_path'    => '',
             'remember_token'        => Str::random(10)
         ]);
         User::create([
@@ -55,7 +55,7 @@ class UsersTableSeeder extends Seeder
             'email'                 => 'qassam@tds.com',
             'password'              => Hash::make('password'),
             'email_verified_at'     => now(),
-            'profile_photo_path'    => 'assets/admin/img/tds.png',
+            'profile_photo_path'    => '',
             'remember_token'        => Str::random(10)
         ]);
     }
