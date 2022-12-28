@@ -96,6 +96,10 @@ Here is how you can run the project locally:
     ```
     
 1. Run seeder
+
+    > **Recommended**
+    >  mail configuration in .env file before seeding.
+
     ```
     php artisan db:seed
     ```
