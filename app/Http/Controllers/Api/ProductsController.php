@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ProductRequest;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -35,9 +36,8 @@ class ProductsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
-        $request->validate(Product::validateRules());
 
         // sheck if image in request
         if ($request->hasFile('image')) {
@@ -93,25 +93,9 @@ class ProductsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ProductRequest $request, $id)
     {
         $product = Product::findOrFail($id);
-
-        $request->validate([
-            'name'        => 'sometimes|required|max:255',
-            'category_id' => 'required|int|exists:categories,id',
-            'description' => 'nullable|min:5',
-            'image'       => 'nullable|image|dimensions:width=760,height-760',
-            'price'       => 'required|numeric|min:0',
-            'sale_price'  => 'nullable|numeric|min:0',
-            'quantity'    => 'required|int|min:0',
-            'sku'         => 'nullable',
-            'width'       => 'nullable|numeric|min:0',
-            'height'      => 'nullable|numeric|min:0',
-            'length'      => 'nullable|numeric|min:0',
-            'weight'      => 'nullable|numeric|min:0',
-            'status'      => 'in:active,draft',
-        ]);
 
         //]]// sheck if image in request
         if ($request->hasFile('image')) {

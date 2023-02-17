@@ -69,26 +69,6 @@ class Product extends Model
                 ->where('price', '<=', $to);
     }
 
-    public static function validateRules()
-    {
-        return [
-            'name'        => 'required|max:255',
-            'category_id' => 'required|int|exists:categories,id',
-            'description' => 'nullable|min:5',
-            'image'       => 'nullable|image|dimensions:width=760,height-760',
-            'price'       => 'required|numeric|min:0',
-            'sale_price'  => 'nullable|numeric|min:0',
-            'quantity'    => 'required|int|min:0',
-            'sku'         => 'nullable',
-                                    // |unique:products,sku
-            'width'       => 'nullable|numeric|min:0',
-            'height'      => 'nullable|numeric|min:0',
-            'length'      => 'nullable|numeric|min:0',
-            'weight'      => 'nullable|numeric|min:0',
-            'status'      => 'in:' . self::STATUS_ACTIVE .',' . self::STATUS_DRAFT,
-        ];
-    }
-
     // Accessors:   get{AttributeName}Attribute()
     // image_url
     public function getImageUrlAttribute()

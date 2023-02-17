@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
@@ -35,11 +36,9 @@ class CategoriesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
         $this->authorize('create', Category::class);
-
-        $request->validate(Category::validateRules());
 
         // merge slug in model
 
@@ -93,15 +92,8 @@ class CategoriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CategoryRequest $request, $id)
     {
-        $request->validate([
-            'name'        => 'sometimes|string|max:255|min:3',
-            'parent_id'   => 'nullable|int|exists:categories,id',
-            'description' => 'nullable|min:5',
-            'image'       => 'nullable|image',
-            'status'      => 'in:active,archived'
-        ]);
 
         $category = Category::findOrFail($id);
         

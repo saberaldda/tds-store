@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ProductRequest;
 use Illuminate\Support\Str;
 use App\Models\Category;
 use App\Models\Product;
@@ -71,13 +72,11 @@ class ProductsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
         $this->authorize('create', Product::class);
 
         // merge slug in model
-
-        $request->validate(Product::validateRules());
 
         // sheck if image in request
         if ($request->hasFile('image')) {
@@ -155,15 +154,13 @@ class ProductsController extends Controller
      * @param  \App\Models\Product $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(ProductRequest $request, Product $product)
     {
         $this->authorize('update', $product);
 
         // merge slug in model
         
         // $product = Product::withoutGlobalScope('active')->findOrFail($id);
-
-        $request->validate(Product::validateRules());
 
         // sheck if image in request
         if ($request->hasFile('image')) {

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UserRequest;
 use App\Models\Country;
 use App\Models\Profile;
 use App\Models\Rating;
@@ -66,11 +67,9 @@ class UsersController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
         $this->authorize('create', User::class);
-
-        $request->validate(User::validateRules());
 
         // sheck if image in request
         if ($request->hasFile('image')) {
@@ -151,19 +150,9 @@ class UsersController extends Controller
      * @param  \App\Models\user  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, user $user)
+    public function update(UserRequest $request, user $user)
     {
         $this->authorize('update', $user);
-
-        $request->validate([
-            'name'                  => 'required|max:255',
-            'image'                 => 'nullable|image',
-            'email'                 => 'required|email',
-            'type'                  => 'required',
-            'password'              => 'nullable|min:8',
-            'password_confirmation' => 'nullable|same:password',
-            'country'               => 'nullable',
-        ]);
 
         // sheck if image in request
         if ($request->hasFile('image')) {

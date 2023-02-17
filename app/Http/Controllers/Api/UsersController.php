@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -35,10 +36,8 @@ class UsersController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
-        $request->validate(User::validateRules());
-
         // sheck if image in request
         if ($request->hasFile('image')) {
             $file = $request->file('image'); // UplodedFile Object
@@ -95,19 +94,9 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UserRequest $request, $id)
     {
         $user = User::findOrfail($id);
-
-        $request->validate([
-            'name'                  => 'required|max:255',
-            'image'                 => 'nullable|image',
-            'email'                 => 'required|email',
-            'type'                  => 'required',
-            'password'              => 'nullable|min:8',
-            'password_confirmation' => 'nullable|same:password',
-            'country'               => 'nullable',
-        ]);
 
         // sheck if image in request
         if ($request->hasFile('image')) {

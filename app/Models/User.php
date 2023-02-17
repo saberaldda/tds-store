@@ -50,19 +50,6 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public static function validateRules()
-    {
-        return [
-        'name'                  => 'required|max:255',
-        'image'                 => 'nullable|image',
-        'email'                 => 'required|email|unique:users,email',
-        'type'                  => 'required|in:super-admin,admin,user',
-        'password'              => 'required|min:8',
-        'password_confirmation' => 'required|same:password',
-        'country'               => 'nullable',
-        ];
-    }
-
     // for gates and policies
     public function hasAbility($ability)
     {

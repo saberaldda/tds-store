@@ -40,16 +40,6 @@ class Category extends Model
         $builder->where('status', '=', 'active');
     }
 
-    protected static function validateRules()
-    {
-        return [
-        'name'        => 'required|string|max:255|min:3',
-        'parent_id'   => 'nullable|int|exists:categories,id',
-        'description' => 'nullable|min:5',
-        'image'       => 'nullable|image',
-        ];
-    }
-    
     // Accessors
     // Exists Attribute get{AttributeName}Attribute()
     // $model->name
