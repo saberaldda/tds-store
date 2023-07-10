@@ -38,7 +38,7 @@ class UsersController extends Controller
      */
     public function store(UserRequest $request)
     {
-        // sheck if image in request
+        // Check if image in request
         if ($request->hasFile('image')) {
             $file = $request->file('image'); // UplodedFile Object
 
@@ -98,7 +98,7 @@ class UsersController extends Controller
     {
         $user = User::findOrfail($id);
 
-        // sheck if image in request
+        // Check if image in request
         if ($request->hasFile('image')) {
             $file = $request->file('image'); // UplodedFile Object
 

@@ -71,7 +71,7 @@ class UsersController extends Controller
     {
         $this->authorize('create', User::class);
 
-        // sheck if image in request
+        // Check if image in request
         if ($request->hasFile('image')) {
             $file = $request->file('image'); // UplodedFile Object
 
@@ -154,7 +154,7 @@ class UsersController extends Controller
     {
         $this->authorize('update', $user);
 
-        // sheck if image in request
+        // Check if image in request
         if ($request->hasFile('image')) {
             $file = $request->file('image'); // UplodedFile Object
 
