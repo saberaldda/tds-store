@@ -22,6 +22,8 @@ Dashboard ![dashboard 1](https://raw.githubusercontent.com/saberaldda/TDS-store/
 
 ![dashboard 2](https://raw.githubusercontent.com/saberaldda/TDS-store/main/storage/mockups/rm355-pf-s73-card-laptop-01-mockup.png)
 
+Database ERD ![ERD](https://raw.githubusercontent.com/saberaldda/TDS-store/main/storage/mockups/TDS_ERD.png)
+
 <a name="requirements"></a>
 ## Requirements
 
