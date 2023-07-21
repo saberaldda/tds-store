@@ -17,6 +17,8 @@ Route::prefix('admin')
     ->group(function () {
 
             // Dashboard
+        Route::get('/', function () { return redirect()->route('dashboard'); });
+        
         Route::get('/dashboard', function () {
             return view('layouts.admin');
         })->name('dashboard');

@@ -26,7 +26,6 @@ use Illuminate\Support\Facades\Route;
 
 require __DIR__.'/auth.php';
 require __DIR__.'/dashboard.php';
-require __DIR__.'/front.php';
 
 // Home
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -67,9 +66,3 @@ Route::controller(ProfileController::class)->middleware('auth')
     Route::post('profile/update/{user}', 'update')->name('profile.update');
     Route::post('profile/changepass/{user}', 'changePass')->name('profile.change-pass');
 });
-
-Route::get('test', [TestController::class, 'index']);
-
-// Regular Expreion
-// src="([^"]+)"
-// src="{{ asset('assets/front/$1') }}"
