@@ -31,6 +31,6 @@ class langSwitcher extends Component
      */
     public function render()
     {
-        return view('components.lang-switcher', ['lang' => $this->lang]);
+        return view('components.lang-switcher');
     }
 }
