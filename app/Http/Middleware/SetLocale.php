@@ -24,10 +24,10 @@ class SetLocale
 
         // $lang = $request->route('lang'); // ar/admin/categories
         $lang = $request->query('lang', session('lang')); // admin/categories?lang=ar
-        if ($lang) {
-            App::setlocale($lang);
-            session()->put('lang', $lang);
-        }
+        // if ($lang) {
+        //     App::setlocale($lang);
+        //     session()->put('lang', $lang);
+        // }
 
         // URL::defaults([
         //     'lang' => App::currentLocale(),
