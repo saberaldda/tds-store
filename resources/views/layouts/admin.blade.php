@@ -101,6 +101,34 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <i class="fas fa-expand-arrows-alt"></i>
                     </a>
                 </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link" data-toggle="dropdown" href="#">
+                        <img src="{{ asset(Auth::user()->image_url) }}" width="35" class="img-circle elevation-2" alt="User Image">
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <a class="dropdown-item" href="#">
+                            <div class="d-flex align-items-center">
+                                <div class="flex-shrink-0 me-3">
+                                    <div class="avatar avatar-online">
+                                        <img src="{{ asset(Auth::user()->image_url) }}" width="35" alt class="rounded-circle" />
+                                    </div>
+                                </div>
+                                <div class="ml-4 flex-grow-1">
+                                    <span class="fw-semibold d-block">{{ Auth::user()->name }}</span>
+                                </div>
+                            </div>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
+                            <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="dropdown-item">
+                                <i class="fas fa-power-off"></i>
+                                <span class="align-middle ml-2">{{ __('Log Out') }}</span>
+                            </a>
+                    </div>
+                </li>
             </ul>
         </nav>
         <!-- /.navbar -->
@@ -115,19 +143,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
             <!-- Sidebar -->
             <div class="sidebar">
-                <!-- Sidebar user panel (optional) -->
-                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                    <div class="image">
-                        <img src="{{ asset(Auth::user()->image_url) }}" class="img-circle elevation-2" alt="User Image">
-                    </div>
-                    <div class="info">
-                        <a href="{{ route('profile.show', Auth::id()) }}" class="d-block">{{ Auth::user()->name }}</a>
-                        <form action="{{ route('logout') }}" method="post">
-                        @csrf
-                        <button type="submit" class="btn btn-sm btn-outline-primary mt-4 ml-4 font-weight-bold">{{ __('Logout') }}</button>
-                        </form>
-                    </div>
-                </div>
                 <!-- Sidebar Menu -->
                 <nav class="mt-2">
                     @if ('user' !== Auth::user()->type)
