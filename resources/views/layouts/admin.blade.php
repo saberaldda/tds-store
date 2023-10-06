@@ -120,6 +120,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             </div>
                         </a>
                         <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{{ route('profile.show', auth()->user()) }}">
+                            <i class="bx bx-user me-2"></i>
+                            <span class="align-middle">{{ __('My Profile') }}</span>
+                        </a>
+                        <div class="dropdown-divider"></div>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                             @csrf
                         </form>
